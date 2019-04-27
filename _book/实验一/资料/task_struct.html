@@ -1,0 +1,1572 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>task_struct ·  呼吸君のGitBook </title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Bre Athy">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-donate/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-lightbox/lightbox.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../../实验二/过程.html" />
+    
+    
+    <link rel="prev" href="nice.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://www.zhihu.com/people/you-yi-shi-de-hu-xi/activities" target="_blank" class="custom-link">Home</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1.1" data-path="../要求.html">
+            
+                <a href="../要求.html">
+            
+                    
+                    实验一
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1.1.1" data-path="../过程.html">
+            
+                <a href="../过程.html">
+            
+                    
+                    实验过程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.1.2" data-path="../实验报告.html">
+            
+                <a href="../实验报告.html">
+            
+                    
+                    实验报告
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.1.3" >
+            
+                <span>
+            
+                    
+                    参考资料
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1.1.3.1" data-path="nice.html">
+            
+                <a href="nice.html">
+            
+                    
+                    nice
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.1.1.3.2" data-path="task_struct.html">
+            
+                <a href="task_struct.html">
+            
+                    
+                    task_struct
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.2" data-path="../../实验二/过程.html">
+            
+                <a href="../../实验二/过程.html">
+            
+                    
+                    实验二
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >task_struct</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <html><head></head><body><h1 id="linux&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;&#x4E4B;taskstruct&#x7ED3;&#x6784;&#x4F53;">Linux&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;&#x4E4B;task_struct&#x7ED3;&#x6784;&#x4F53;</h1>
+<p> &#x8FDB;&#x7A0B;&#x662F;&#x5904;&#x4E8E;&#x6267;&#x884C;&#x671F;&#x7684;&#x7A0B;&#x5E8F;&#x4EE5;&#x53CA;&#x5B83;&#x6240;&#x7BA1;&#x7406;&#x7684;&#x8D44;&#x6E90;&#xFF08;&#x5982;&#x6253;&#x5F00;&#x7684;&#x6587;&#x4EF6;&#x3001;&#x6302;&#x8D77;&#x7684;&#x4FE1;&#x53F7;&#x3001;&#x8FDB;&#x7A0B;&#x72B6;&#x6001;&#x3001;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#x7B49;&#x7B49;&#xFF09;&#x7684;&#x603B;&#x79F0;&#x3002;&#x6CE8;&#x610F;&#xFF0C;&#x7A0B;&#x5E8F;&#x5E76;&#x4E0D;&#x662F;&#x8FDB;&#x7A0B;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x4E24;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x8FDB;&#x7A0B;&#x4E0D;&#x4EC5;&#x6709;&#x53EF;&#x80FD;&#x6267;&#x884C;&#x540C;&#x4E00;&#x7A0B;&#x5E8F;&#xFF0C;&#x800C;&#x4E14;&#x8FD8;&#x6709;&#x53EF;&#x80FD;&#x5171;&#x4EAB;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#x7B49;&#x8D44;&#x6E90;&#x3002;</p>
+<p>&#x200B;    Linux&#x5185;&#x6838;&#x901A;&#x8FC7;&#x4E00;&#x4E2A;&#x88AB;&#x79F0;&#x4E3A;&#x8FDB;&#x7A0B;&#x63CF;&#x8FF0;&#x7B26;&#x7684;task_struct&#x7ED3;&#x6784;&#x4F53;&#x6765;&#x7BA1;&#x7406;&#x8FDB;&#x7A0B;&#xFF0C;&#x8FD9;&#x4E2A;&#x7ED3;&#x6784;&#x4F53;&#x5305;&#x542B;&#x4E86;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x6240;&#x9700;&#x7684;&#x6240;&#x6709;&#x4FE1;&#x606F;&#x3002;&#x5B83;&#x5B9A;&#x4E49;&#x5728;linux-2.6.38.8/include/linux/sched.h&#x6587;&#x4EF6;&#x4E2D;&#x3002;</p>
+<p> &#x672C;&#x6587;&#x5C06;&#x5C3D;&#x529B;&#x5C31;task_struct&#x7ED3;&#x6784;&#x4F53;&#x6240;&#x6709;&#x6210;&#x5458;&#x7684;&#x7528;&#x6CD5;&#x8FDB;&#x884C;&#x7B80;&#x8981;&#x8BF4;&#x660E;&#x3002;</p>
+<p>&#x200B;    1&#x3001;&#x8FDB;&#x7A0B;&#x72B6;&#x6001; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">?</a></p>
+<ol>
+<li><strong>volatile long state;</strong>  </li>
+<li>int exit_state;  </li>
+</ol>
+<pre><code>    volatile long state;
+    int exit_state;
+</code></pre><p>&#x200B;    state&#x6210;&#x5458;&#x7684;&#x53EF;&#x80FD;&#x53D6;&#x503C;&#x5982;&#x4E0B;&#xFF1A; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">?</a></p>
+<ol>
+<li>#define TASK_RUNNING        0  </li>
+<li>#define TASK_INTERRUPTIBLE  1  </li>
+<li>#define TASK_UNINTERRUPTIBLE    2  </li>
+<li>#define __TASK_STOPPED      4  </li>
+<li>#define __TASK_TRACED       8  </li>
+<li>/<em> in tsk-&gt;exit_state </em>/  </li>
+<li>#define EXIT_ZOMBIE     16  </li>
+<li>#define EXIT_DEAD       32  </li>
+<li>/<em> in tsk-&gt;state again </em>/  </li>
+<li>#define TASK_DEAD       64  </li>
+<li>#define TASK_WAKEKILL       128  </li>
+<li>#define TASK_WAKING     256  </li>
+</ol>
+<pre><code>#define TASK_RUNNING        0
+#define TASK_INTERRUPTIBLE    1
+#define TASK_UNINTERRUPTIBLE    2
+#define __TASK_STOPPED        4
+#define __TASK_TRACED        8
+/* in tsk-&gt;exit_state */
+#define EXIT_ZOMBIE        16
+#define EXIT_DEAD        32
+/* in tsk-&gt;state again */
+#define TASK_DEAD        64
+#define TASK_WAKEKILL        128
+#define TASK_WAKING        256
+</code></pre><p>&#x200B;    &#x7CFB;&#x7EDF;&#x4E2D;&#x7684;&#x6BCF;&#x4E2A;&#x8FDB;&#x7A0B;&#x90FD;&#x5FC5;&#x7136;&#x5904;&#x4E8E;&#x4EE5;&#x4E0A;&#x6240;&#x5217;&#x8FDB;&#x7A0B;&#x72B6;&#x6001;&#x4E2D;&#x7684;&#x4E00;&#x79CD;&#x3002;</p>
+<p>&#x200B;    TASK_RUNNING&#x8868;&#x793A;&#x8FDB;&#x7A0B;&#x8981;&#x4E48;&#x6B63;&#x5728;&#x6267;&#x884C;&#xFF0C;&#x8981;&#x4E48;&#x6B63;&#x8981;&#x51C6;&#x5907;&#x6267;&#x884C;&#x3002;</p>
+<p>&#x200B;    TASK_INTERRUPTIBLE&#x8868;&#x793A;&#x8FDB;&#x7A0B;&#x88AB;&#x963B;&#x585E;&#xFF08;&#x7761;&#x7720;&#xFF09;&#xFF0C;&#x76F4;&#x5230;&#x67D0;&#x4E2A;&#x6761;&#x4EF6;&#x53D8;&#x4E3A;&#x771F;&#x3002;&#x6761;&#x4EF6;&#x4E00;&#x65E6;&#x8FBE;&#x6210;&#xFF0C;&#x8FDB;&#x7A0B;&#x7684;&#x72B6;&#x6001;&#x5C31;&#x88AB;&#x8BBE;&#x7F6E;&#x4E3A;TASK_RUNNING&#x3002;</p>
+<p>&#x200B;    TASK_UNINTERRUPTIBLE&#x7684;&#x610F;&#x4E49;&#x4E0E;TASK_INTERRUPTIBLE&#x7C7B;&#x4F3C;&#xFF0C;&#x9664;&#x4E86;&#x4E0D;&#x80FD;&#x901A;&#x8FC7;&#x63A5;&#x53D7;&#x4E00;&#x4E2A;&#x4FE1;&#x53F7;&#x6765;&#x5524;&#x9192;&#x4EE5;&#x5916;&#x3002;</p>
+<p>&#x200B;    __TASK_STOPPED&#x8868;&#x793A;&#x8FDB;&#x7A0B;&#x88AB;&#x505C;&#x6B62;&#x6267;&#x884C;&#x3002;</p>
+<p>&#x200B;    __TASK_TRACED&#x8868;&#x793A;&#x8FDB;&#x7A0B;&#x88AB;debugger&#x7B49;&#x8FDB;&#x7A0B;&#x76D1;&#x89C6;&#x3002;</p>
+<p>&#x200B;    EXIT_ZOMBIE&#x8868;&#x793A;&#x8FDB;&#x7A0B;&#x7684;&#x6267;&#x884C;&#x88AB;&#x7EC8;&#x6B62;&#xFF0C;&#x4F46;&#x662F;&#x5176;&#x7236;&#x8FDB;&#x7A0B;&#x8FD8;&#x6CA1;&#x6709;&#x4F7F;&#x7528;wait()&#x7B49;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x6765;&#x83B7;&#x77E5;&#x5B83;&#x7684;&#x7EC8;&#x6B62;&#x4FE1;&#x606F;&#x3002;</p>
+<p>&#x200B;    EXIT_DEAD&#x8868;&#x793A;&#x8FDB;&#x7A0B;&#x7684;&#x6700;&#x7EC8;&#x72B6;&#x6001;&#x3002;</p>
+<p>&#x200B;    EXIT_ZOMBIE&#x548C;EXIT_DEAD&#x4E5F;&#x53EF;&#x4EE5;&#x5B58;&#x653E;&#x5728;exit_state&#x6210;&#x5458;&#x4E2D;&#x3002;&#x8FDB;&#x7A0B;&#x72B6;&#x6001;&#x7684;&#x5207;&#x6362;&#x8FC7;&#x7A0B;&#x548C;&#x539F;&#x56E0;&#x5927;&#x81F4;&#x5982;&#x4E0B;&#x56FE;&#xFF08;&#x56FE;&#x7247;&#x6765;&#x81EA;&#x300A;Linux Kernel Development&#x300B;&#xFF09;&#xFF1A;</p>
+<p> <a href="http://my.csdn.net/uploads/201204/14/1334337470_8447.jpg" data-lightbox="1c7fd424-bc6d-4c72-ac1d-7636a4b87cf7" data-title="img" target="_blank"><img src="http://my.csdn.net/uploads/201204/14/1334337470_8447.jpg" alt="img"></a></p>
+<p>&#x200B;    2&#x3001;&#x8FDB;&#x7A0B;&#x6807;&#x8BC6;&#x7B26;&#xFF08;PID&#xFF09; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">?</a></p>
+<ol>
+<li>pid_t pid;  </li>
+<li>pid_t tgid;  </li>
+</ol>
+<pre><code>    pid_t pid;
+    pid_t tgid;
+</code></pre><p>&#x200B;    &#x5728;CONFIG_BASE_SMALL&#x914D;&#x7F6E;&#x4E3A;0&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;PID&#x7684;&#x53D6;&#x503C;&#x8303;&#x56F4;&#x662F;0&#x5230;32767&#xFF0C;&#x5373;&#x7CFB;&#x7EDF;&#x4E2D;&#x7684;&#x8FDB;&#x7A0B;&#x6570;&#x6700;&#x5927;&#x4E3A;32768&#x4E2A;&#x3002; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">?</a></p>
+<ol>
+<li>/<em> linux-2.6.38.8/include/linux/threads.h </em>/  </li>
+<li>#define PID_MAX_DEFAULT (CONFIG_BASE_SMALL ? 0x1000 : 0x8000)  </li>
+</ol>
+<pre><code>/* linux-2.6.38.8/include/linux/threads.h */
+#define PID_MAX_DEFAULT (CONFIG_BASE_SMALL ? 0x1000 : 0x8000)
+</code></pre><p>&#x200B;    &#x5728;Linux&#x7CFB;&#x7EDF;&#x4E2D;&#xFF0C;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x7EC4;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x7EBF;&#x7A0B;&#x4F7F;&#x7528;&#x548C;&#x8BE5;&#x7EBF;&#x7A0B;&#x7EC4;&#x7684;&#x9886;&#x5934;&#x7EBF;&#x7A0B;&#xFF08;&#x8BE5;&#x7EC4;&#x4E2D;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x8F7B;&#x91CF;&#x7EA7;&#x8FDB;&#x7A0B;&#xFF09;&#x76F8;&#x540C;&#x7684;PID&#xFF0C;&#x5E76;&#x88AB;&#x5B58;&#x653E;&#x5728;tgid&#x6210;&#x5458;&#x4E2D;&#x3002;&#x53EA;&#x6709;&#x7EBF;&#x7A0B;&#x7EC4;&#x7684;&#x9886;&#x5934;&#x7EBF;&#x7A0B;&#x7684;pid&#x6210;&#x5458;&#x624D;&#x4F1A;&#x88AB;&#x8BBE;&#x7F6E;&#x4E3A;&#x4E0E;tgid&#x76F8;&#x540C;&#x7684;&#x503C;&#x3002;&#x6CE8;&#x610F;&#xFF0C;getpid()&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x8FD4;&#x56DE;&#x7684;&#x662F;&#x5F53;&#x524D;&#x8FDB;&#x7A0B;&#x7684;tgid&#x503C;&#x800C;&#x4E0D;&#x662F;pid&#x503C;&#x3002;</p>
+<p>&#x200B;    3&#x3001;&#x8FDB;&#x7A0B;&#x5185;&#x6838;&#x6808; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">?</a></p>
+<ol>
+<li><strong>void *stack;</strong>  </li>
+</ol>
+<pre><code>    void *stack;
+</code></pre><p>&#x200B;    &#x8FDB;&#x7A0B;&#x901A;&#x8FC7;alloc_thread_info&#x51FD;&#x6570;&#x5206;&#x914D;&#x5B83;&#x7684;&#x5185;&#x6838;&#x6808;&#xFF0C;&#x901A;&#x8FC7;free_thread_info&#x51FD;&#x6570;&#x91CA;&#x653E;&#x6240;&#x5206;&#x914D;&#x7684;&#x5185;&#x6838;&#x6808;&#x3002; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">?</a></p>
+<ol>
+<li>/<em> linux-2.6.38.8/kernel/fork.c </em>/   </li>
+<li><strong>static inline struct thread_info *alloc_thread_info(struct task_struct *tsk)</strong>  </li>
+<li>{  </li>
+<li>#ifdef CONFIG_DEBUG_STACK_USAGE  </li>
+<li>&#x200B;    gfp_t mask = GFP_KERNEL | __GFP_ZERO;  </li>
+<li>#else  </li>
+<li>&#x200B;    gfp_t mask = GFP_KERNEL;  </li>
+<li>#endif  </li>
+<li>&#x200B;    <strong>return (struct thread_info *)__get_free_pages(mask, THREAD_SIZE_ORDER);</strong>  </li>
+<li>}  </li>
+<li><strong>static inline void free_thread_info(struct thread_info *ti)</strong>  </li>
+<li>{  </li>
+<li>&#x200B;    free_pages((unsigned long)ti, THREAD_SIZE_ORDER);  </li>
+<li>}  </li>
+</ol>
+<pre><code>/* linux-2.6.38.8/kernel/fork.c */ 
+static inline struct thread_info *alloc_thread_info(struct task_struct *tsk)
+{
+#ifdef CONFIG_DEBUG_STACK_USAGE
+    gfp_t mask = GFP_KERNEL | __GFP_ZERO;
+#else
+    gfp_t mask = GFP_KERNEL;
+#endif
+    return (struct thread_info *)__get_free_pages(mask, THREAD_SIZE_ORDER);
+}
+static inline void free_thread_info(struct thread_info *ti)
+{
+    free_pages((unsigned long)ti, THREAD_SIZE_ORDER);
+}
+</code></pre><p>&#x200B;    &#x5176;&#x4E2D;&#xFF0C;THREAD_SIZE_ORDER&#x5B8F;&#x5728;linux-2.6.38.8/arch/arm/include/asm/thread_info.h&#x6587;&#x4EF6;&#x4E2D;&#x88AB;&#x5B9A;&#x4E49;&#x4E3A;1&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;alloc_thread_info&#x51FD;&#x6570;&#x901A;&#x8FC7;&#x8C03;&#x7528;__get_free_pages&#x51FD;&#x6570;&#x5206;&#x914D;2&#x4E2A;&#x9875;&#x7684;&#x5185;&#x5B58;&#xFF08;&#x5B83;&#x7684;&#x9996;&#x5730;&#x5740;&#x662F;8192&#x5B57;&#x8282;&#x5BF9;&#x9F50;&#x7684;&#xFF09;&#x3002;</p>
+<p>&#x200B;    Linux&#x5185;&#x6838;&#x901A;&#x8FC7;thread_union&#x8054;&#x5408;&#x4F53;&#x6765;&#x8868;&#x793A;&#x8FDB;&#x7A0B;&#x7684;&#x5185;&#x6838;&#x6808;&#xFF0C;&#x5176;&#x4E2D;THREAD_SIZE&#x5B8F;&#x7684;&#x5927;&#x5C0F;&#x4E3A;8192&#x3002; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">?</a></p>
+<ol>
+<li><strong>union thread_union {</strong>  </li>
+<li>&#x200B;    <strong>struct thread_info thread_info;</strong>  </li>
+<li>&#x200B;    unsigned long stack[THREAD_SIZE/<strong>sizeof(long)];</strong>  </li>
+<li>};  </li>
+</ol>
+<pre><code>union thread_union {
+    struct thread_info thread_info;
+    unsigned long stack[THREAD_SIZE/sizeof(long)];
+};
+</code></pre><p>&#x200B;    &#x5F53;&#x8FDB;&#x7A0B;&#x4ECE;&#x7528;&#x6237;&#x6001;&#x5207;&#x6362;&#x5230;&#x5185;&#x6838;&#x6001;&#x65F6;&#xFF0C;&#x8FDB;&#x7A0B;&#x7684;&#x5185;&#x6838;&#x6808;&#x603B;&#x662F;&#x7A7A;&#x7684;&#xFF0C;&#x6240;&#x4EE5;ARM&#x7684;sp&#x5BC4;&#x5B58;&#x5668;&#x6307;&#x5411;&#x8FD9;&#x4E2A;&#x6808;&#x7684;&#x9876;&#x7AEF;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x5185;&#x6838;&#x80FD;&#x591F;&#x8F7B;&#x6613;&#x5730;&#x901A;&#x8FC7;sp&#x5BC4;&#x5B58;&#x5668;&#x83B7;&#x5F97;&#x5F53;&#x524D;&#x6B63;&#x5728;CPU&#x4E0A;&#x8FD0;&#x884C;&#x7684;&#x8FDB;&#x7A0B;&#x3002; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">?</a></p>
+<ol>
+<li>/<em> linux-2.6.38.8/arch/arm/include/asm/current.h </em>/  </li>
+<li><strong>static inline struct task_struct *get_current(void)</strong>  </li>
+<li>{  </li>
+<li>&#x200B;    <strong>return current_thread_info()-&gt;task;</strong>  </li>
+<li>}  </li>
+<li></li>
+<li>#define current (get_current())  </li>
+<li></li>
+<li>/<em> linux-2.6.38.8/arch/arm/include/asm/thread_info.h </em>/   </li>
+<li><strong>static inline struct thread_info *current_thread_info(void)</strong>  </li>
+<li>{  </li>
+<li>&#x200B;    <strong>register unsigned long sp asm (&quot;sp&quot;);</strong>  </li>
+<li>&#x200B;    <strong>return (struct thread_info *)(sp &amp; ~(THREAD_SIZE - 1));</strong>  </li>
+<li>}  </li>
+</ol>
+<pre><code>/* linux-2.6.38.8/arch/arm/include/asm/current.h */
+static inline struct task_struct *get_current(void)
+{
+    return current_thread_info()-&gt;task;
+}
+
+#define current (get_current())
+
+/* linux-2.6.38.8/arch/arm/include/asm/thread_info.h */ 
+static inline struct thread_info *current_thread_info(void)
+{
+    register unsigned long sp asm (&quot;sp&quot;);
+    return (struct thread_info *)(sp &amp; ~(THREAD_SIZE - 1));
+}
+</code></pre><p>&#x200B;    &#x8FDB;&#x7A0B;&#x5185;&#x6838;&#x6808;&#x4E0E;&#x8FDB;&#x7A0B;&#x63CF;&#x8FF0;&#x7B26;&#x7684;&#x5173;&#x7CFB;&#x5982;&#x4E0B;&#x56FE;&#xFF1A;</p>
+<p> <a href="http://my.csdn.net/uploads/201204/14/1334337507_4423.jpg" data-lightbox="0bbb9465-335e-4200-a5aa-593a33e7b073" data-title="img" target="_blank"><img src="http://my.csdn.net/uploads/201204/14/1334337507_4423.jpg" alt="img"></a></p>
+<p>&#x200B;    4&#x3001;&#x6807;&#x8BB0; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">?</a></p>
+<ol>
+<li>unsigned int flags; /<em> per process flags, defined below </em>/  </li>
+</ol>
+<pre><code>    unsigned int flags;    /* per process flags, defined below */
+</code></pre><p>&#x200B;    flags&#x6210;&#x5458;&#x7684;&#x53EF;&#x80FD;&#x53D6;&#x503C;&#x5982;&#x4E0B;&#xFF1A; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">?</a></p>
+<ol>
+<li>#define PF_KSOFTIRQD    0x00000001  /<em> I am ksoftirqd </em>/  </li>
+<li>#define PF_STARTING 0x00000002  /<em> being created </em>/  </li>
+<li>#define PF_EXITING  0x00000004  /<em> getting shut down </em>/  </li>
+<li>#define PF_EXITPIDONE   0x00000008  /<em> pi exit done on shut down </em>/  </li>
+<li>#define PF_VCPU     0x00000010  /<em> I&apos;m a virtual CPU </em>/  </li>
+<li>#define PF_WQ_WORKER    0x00000020  /<em> I&apos;m a workqueue worker </em>/  </li>
+<li>#define PF_FORKNOEXEC   0x00000040  /<em> forked but didn&apos;t exec </em>/  </li>
+<li>#define PF_MCE_PROCESS  0x00000080      /<em> process policy on mce errors </em>/  </li>
+<li>#define PF_SUPERPRIV    0x00000100  /<em> used super-user privileges </em>/  </li>
+<li>#define PF_DUMPCORE 0x00000200  /<em> dumped core </em>/  </li>
+<li>#define PF_SIGNALED 0x00000400  /<em> killed by a signal </em>/  </li>
+<li>#define PF_MEMALLOC 0x00000800  /<em> Allocating memory </em>/  </li>
+<li>#define PF_USED_MATH    0x00002000  /<em> if unset the fpu must be initialized before use </em>/  </li>
+<li>#define PF_FREEZING 0x00004000  /<em> freeze in progress. do not account to load </em>/  </li>
+<li>#define PF_NOFREEZE 0x00008000  /<em> this thread should not be frozen </em>/  </li>
+<li>#define PF_FROZEN   0x00010000  /<em> frozen for system suspend </em>/  </li>
+<li>#define PF_FSTRANS  0x00020000  /<em> inside a filesystem transaction </em>/  </li>
+<li>#define PF_KSWAPD   0x00040000  /<em> I am kswapd </em>/  </li>
+<li>#define PF_OOM_ORIGIN   0x00080000  /<em> Allocating much memory to others </em>/  </li>
+<li>#define PF_LESS_THROTTLE 0x00100000 /<em> Throttle me less: I clean memory </em>/  </li>
+<li>#define PF_KTHREAD  0x00200000  /<em> I am a kernel thread </em>/  </li>
+<li>#define PF_RANDOMIZE    0x00400000  /<em> randomize virtual address space </em>/  </li>
+<li>#define PF_SWAPWRITE    0x00800000  /<em> Allowed to write to swap </em>/  </li>
+<li>#define PF_SPREAD_PAGE  0x01000000  /<em> Spread page cache over cpuset </em>/  </li>
+<li>#define PF_SPREAD_SLAB  0x02000000  /<em> Spread some slab caches over cpuset </em>/  </li>
+<li>#define PF_THREAD_BOUND 0x04000000  /<em> Thread bound to specific cpu </em>/  </li>
+<li>#define PF_MCE_EARLY    0x08000000      /<em> Early kill for mce process policy </em>/  </li>
+<li>#define PF_MEMPOLICY    0x10000000  /<em> Non-default NUMA mempolicy </em>/  </li>
+<li>#define PF_MUTEX_TESTER 0x20000000  /<em> Thread belongs to the rt mutex tester </em>/  </li>
+<li>#define PF_FREEZER_SKIP 0x40000000  /<em> Freezer should not count it as freezable </em>/  </li>
+<li>#define PF_FREEZER_NOSIG 0x80000000 /<em> Freezer won&apos;t send signals to it </em>/  </li>
+</ol>
+<pre><code>#define PF_KSOFTIRQD    0x00000001    /* I am ksoftirqd */
+#define PF_STARTING    0x00000002    /* being created */
+#define PF_EXITING    0x00000004    /* getting shut down */
+#define PF_EXITPIDONE    0x00000008    /* pi exit done on shut down */
+#define PF_VCPU        0x00000010    /* I&apos;m a virtual CPU */
+#define PF_WQ_WORKER    0x00000020    /* I&apos;m a workqueue worker */
+#define PF_FORKNOEXEC    0x00000040    /* forked but didn&apos;t exec */
+#define PF_MCE_PROCESS  0x00000080      /* process policy on mce errors */
+#define PF_SUPERPRIV    0x00000100    /* used super-user privileges */
+#define PF_DUMPCORE    0x00000200    /* dumped core */
+#define PF_SIGNALED    0x00000400    /* killed by a signal */
+#define PF_MEMALLOC    0x00000800    /* Allocating memory */
+#define PF_USED_MATH    0x00002000    /* if unset the fpu must be initialized before use */
+#define PF_FREEZING    0x00004000    /* freeze in progress. do not account to load */
+#define PF_NOFREEZE    0x00008000    /* this thread should not be frozen */
+#define PF_FROZEN    0x00010000    /* frozen for system suspend */
+#define PF_FSTRANS    0x00020000    /* inside a filesystem transaction */
+#define PF_KSWAPD    0x00040000    /* I am kswapd */
+#define PF_OOM_ORIGIN    0x00080000    /* Allocating much memory to others */
+#define PF_LESS_THROTTLE 0x00100000    /* Throttle me less: I clean memory */
+#define PF_KTHREAD    0x00200000    /* I am a kernel thread */
+#define PF_RANDOMIZE    0x00400000    /* randomize virtual address space */
+#define PF_SWAPWRITE    0x00800000    /* Allowed to write to swap */
+#define PF_SPREAD_PAGE    0x01000000    /* Spread page cache over cpuset */
+#define PF_SPREAD_SLAB    0x02000000    /* Spread some slab caches over cpuset */
+#define PF_THREAD_BOUND    0x04000000    /* Thread bound to specific cpu */
+#define PF_MCE_EARLY    0x08000000      /* Early kill for mce process policy */
+#define PF_MEMPOLICY    0x10000000    /* Non-default NUMA mempolicy */
+#define PF_MUTEX_TESTER    0x20000000    /* Thread belongs to the rt mutex tester */
+#define PF_FREEZER_SKIP    0x40000000    /* Freezer should not count it as freezable */
+#define PF_FREEZER_NOSIG 0x80000000    /* Freezer won&apos;t send signals to it */
+</code></pre><p>&#x200B;    5&#x3001;&#x8868;&#x793A;&#x8FDB;&#x7A0B;&#x4EB2;&#x5C5E;&#x5173;&#x7CFB;&#x7684;&#x6210;&#x5458; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">?</a></p>
+<ol>
+<li><strong>struct task_struct *real_parent; /* real parent process */</strong>  </li>
+<li><strong>struct task_struct *parent; /* recipient of SIGCHLD, wait4() reports */</strong>  </li>
+<li><strong>struct list_head children;  /* list of my children */</strong>  </li>
+<li><strong>struct list_head sibling;   /* linkage in my parent&apos;s children list */</strong>  </li>
+<li><strong>struct task_struct *group_leader;   /* threadgroup leader */</strong>  </li>
+</ol>
+<pre><code>    struct task_struct *real_parent; /* real parent process */
+    struct task_struct *parent; /* recipient of SIGCHLD, wait4() reports */
+    struct list_head children;    /* list of my children */
+    struct list_head sibling;    /* linkage in my parent&apos;s children list */
+    struct task_struct *group_leader;    /* threadgroup leader */
+</code></pre><p>&#x200B;    &#x5728;Linux&#x7CFB;&#x7EDF;&#x4E2D;&#xFF0C;&#x6240;&#x6709;&#x8FDB;&#x7A0B;&#x4E4B;&#x95F4;&#x90FD;&#x6709;&#x7740;&#x76F4;&#x63A5;&#x6216;&#x95F4;&#x63A5;&#x5730;&#x8054;&#x7CFB;&#xFF0C;&#x6BCF;&#x4E2A;&#x8FDB;&#x7A0B;&#x90FD;&#x6709;&#x5176;&#x7236;&#x8FDB;&#x7A0B;&#xFF0C;&#x4E5F;&#x53EF;&#x80FD;&#x6709;&#x96F6;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x5B50;&#x8FDB;&#x7A0B;&#x3002;&#x62E5;&#x6709;&#x540C;&#x4E00;&#x7236;&#x8FDB;&#x7A0B;&#x7684;&#x6240;&#x6709;&#x8FDB;&#x7A0B;&#x5177;&#x6709;&#x5144;&#x5F1F;&#x5173;&#x7CFB;&#x3002;</p>
+<p>&#x200B;    real_parent&#x6307;&#x5411;&#x5176;&#x7236;&#x8FDB;&#x7A0B;&#xFF0C;&#x5982;&#x679C;&#x521B;&#x5EFA;&#x5B83;&#x7684;&#x7236;&#x8FDB;&#x7A0B;&#x4E0D;&#x518D;&#x5B58;&#x5728;&#xFF0C;&#x5219;&#x6307;&#x5411;PID&#x4E3A;1&#x7684;init&#x8FDB;&#x7A0B;&#x3002;</p>
+<p>&#x200B;    parent&#x6307;&#x5411;&#x5176;&#x7236;&#x8FDB;&#x7A0B;&#xFF0C;&#x5F53;&#x5B83;&#x7EC8;&#x6B62;&#x65F6;&#xFF0C;&#x5FC5;&#x987B;&#x5411;&#x5B83;&#x7684;&#x7236;&#x8FDB;&#x7A0B;&#x53D1;&#x9001;&#x4FE1;&#x53F7;&#x3002;&#x5B83;&#x7684;&#x503C;&#x901A;&#x5E38;&#x4E0E;real_parent&#x76F8;&#x540C;&#x3002;</p>
+<p>&#x200B;    children&#x8868;&#x793A;&#x94FE;&#x8868;&#x7684;&#x5934;&#x90E8;&#xFF0C;&#x94FE;&#x8868;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x5143;&#x7D20;&#x90FD;&#x662F;&#x5B83;&#x7684;&#x5B50;&#x8FDB;&#x7A0B;&#x3002;</p>
+<p>&#x200B;    sibling&#x7528;&#x4E8E;&#x628A;&#x5F53;&#x524D;&#x8FDB;&#x7A0B;&#x63D2;&#x5165;&#x5230;&#x5144;&#x5F1F;&#x94FE;&#x8868;&#x4E2D;&#x3002;</p>
+<p>&#x200B;    group_leader&#x6307;&#x5411;&#x5176;&#x6240;&#x5728;&#x8FDB;&#x7A0B;&#x7EC4;&#x7684;&#x9886;&#x5934;&#x8FDB;&#x7A0B;&#x3002;</p>
+<p>&#x200B;    6&#x3001;ptrace&#x7CFB;&#x7EDF;&#x8C03;&#x7528; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">?</a></p>
+<ol>
+<li>unsigned int ptrace;  </li>
+<li><strong>struct list_head ptraced;</strong>  </li>
+<li><strong>struct list_head ptrace_entry;</strong>  </li>
+<li>unsigned long ptrace_message;  </li>
+<li>siginfo_t <em>last_siginfo; /</em> For ptrace use.  */  </li>
+<li>ifdef CONFIG_HAVE_HW_BREAKPOINT  </li>
+<li>atomic_t ptrace_bp_refcnt;  </li>
+<li>endif  </li>
+</ol>
+<pre><code>    unsigned int ptrace;
+    struct list_head ptraced;
+    struct list_head ptrace_entry;
+    unsigned long ptrace_message;
+    siginfo_t *last_siginfo; /* For ptrace use.  */
+#ifdef CONFIG_HAVE_HW_BREAKPOINT
+    atomic_t ptrace_bp_refcnt;
+#endif
+</code></pre><p>&#x200B;    &#x6210;&#x5458;ptrace&#x88AB;&#x8BBE;&#x7F6E;&#x4E3A;0&#x65F6;&#x8868;&#x793A;&#x4E0D;&#x9700;&#x8981;&#x88AB;&#x8DDF;&#x8E2A;&#xFF0C;&#x5B83;&#x7684;&#x53EF;&#x80FD;&#x53D6;&#x503C;&#x5982;&#x4E0B;&#xFF1A; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">?</a></p>
+<ol>
+<li>/<em> linux-2.6.38.8/include/linux/ptrace.h </em>/  </li>
+<li>#define PT_PTRACED  0x00000001  </li>
+<li>#define PT_DTRACE   0x00000002  /<em> delayed trace (used on m68k, i386) </em>/  </li>
+<li>#define PT_TRACESYSGOOD 0x00000004  </li>
+<li>#define PT_PTRACE_CAP   0x00000008  /<em> ptracer can follow suid-exec </em>/  </li>
+<li>#define PT_TRACE_FORK   0x00000010  </li>
+<li>#define PT_TRACE_VFORK  0x00000020  </li>
+<li>#define PT_TRACE_CLONE  0x00000040  </li>
+<li>#define PT_TRACE_EXEC   0x00000080  </li>
+<li>#define PT_TRACE_VFORK_DONE 0x00000100  </li>
+<li>#define PT_TRACE_EXIT   0x00000200  </li>
+</ol>
+<pre><code>/* linux-2.6.38.8/include/linux/ptrace.h */
+#define PT_PTRACED    0x00000001
+#define PT_DTRACE    0x00000002    /* delayed trace (used on m68k, i386) */
+#define PT_TRACESYSGOOD    0x00000004
+#define PT_PTRACE_CAP    0x00000008    /* ptracer can follow suid-exec */
+#define PT_TRACE_FORK    0x00000010
+#define PT_TRACE_VFORK    0x00000020
+#define PT_TRACE_CLONE    0x00000040
+#define PT_TRACE_EXEC    0x00000080
+#define PT_TRACE_VFORK_DONE    0x00000100
+#define PT_TRACE_EXIT    0x00000200
+</code></pre><p>&#x200B;    7&#x3001;Performance Event </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">?</a></p>
+<ol>
+<li>#ifdef CONFIG_PERF_EVENTS  </li>
+<li>&#x200B;    <strong>struct perf_event_context *perf_event_ctxp[perf_nr_task_contexts];</strong>  </li>
+<li>&#x200B;    <strong>struct mutex perf_event_mutex;</strong>  </li>
+<li>&#x200B;    <strong>struct list_head perf_event_list;</strong>  </li>
+<li>#endif  </li>
+</ol>
+<pre><code>#ifdef CONFIG_PERF_EVENTS
+    struct perf_event_context *perf_event_ctxp[perf_nr_task_contexts];
+    struct mutex perf_event_mutex;
+    struct list_head perf_event_list;
+#endif
+</code></pre><p>&#x200B;    Performance Event&#x662F;&#x4E00;&#x6B3E;&#x968F; Linux &#x5185;&#x6838;&#x4EE3;&#x7801;&#x4E00;&#x540C;&#x53D1;&#x5E03;&#x548C;&#x7EF4;&#x62A4;&#x7684;&#x6027;&#x80FD;&#x8BCA;&#x65AD;&#x5DE5;&#x5177;&#x3002;&#x8FD9;&#x4E9B;&#x6210;&#x5458;&#x7528;&#x4E8E;&#x5E2E;&#x52A9;PerformanceEvent&#x5206;&#x6790;&#x8FDB;&#x7A0B;&#x7684;&#x6027;&#x80FD;&#x95EE;&#x9898;&#x3002;</p>
+<p>&#x200B;    &#x5173;&#x4E8E;Performance Event&#x5DE5;&#x5177;&#x7684;&#x4ECB;&#x7ECD;&#x53EF;&#x53C2;&#x8003;&#x6587;&#x7AE0;<a href="http://www.ibm.com/developerworks/cn/linux/l-cn-perf1/index.html?ca=drs-#major1" target="_blank">http://www.ibm.com/developerworks/cn/linux/l-cn-perf1/index.html?ca=drs-#major1</a>&#x548C;<a href="http://www.ibm.com/developerworks/cn/linux/l-cn-perf2/index.html?ca=drs-#major1" target="_blank">http://www.ibm.com/developerworks/cn/linux/l-cn-perf2/index.html?ca=drs-#major1</a>&#x3002;</p>
+<p>&#x200B;    8&#x3001;&#x8FDB;&#x7A0B;&#x8C03;&#x5EA6; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">?</a></p>
+<ol>
+<li>int prio, static_prio, normal_prio;  </li>
+<li>unsigned int rt_priority;  </li>
+<li><strong>const struct sched_class *sched_class;</strong>  </li>
+<li><strong>struct sched_entity se;</strong>  </li>
+<li><strong>struct sched_rt_entity rt;</strong>  </li>
+<li>unsigned int policy;  </li>
+<li>cpumask_t cpus_allowed;  </li>
+</ol>
+<pre><code>    int prio, static_prio, normal_prio;
+    unsigned int rt_priority;
+    const struct sched_class *sched_class;
+    struct sched_entity se;
+    struct sched_rt_entity rt;
+    unsigned int policy;
+    cpumask_t cpus_allowed;
+</code></pre><p>&#x200B;    &#x5B9E;&#x65F6;&#x4F18;&#x5148;&#x7EA7;&#x8303;&#x56F4;&#x662F;0&#x5230;MAX_RT_PRIO-1&#xFF08;&#x5373;99&#xFF09;&#xFF0C;&#x800C;&#x666E;&#x901A;&#x8FDB;&#x7A0B;&#x7684;&#x9759;&#x6001;&#x4F18;&#x5148;&#x7EA7;&#x8303;&#x56F4;&#x662F;&#x4ECE;MAX_RT_PRIO&#x5230;MAX_PRIO-1&#xFF08;&#x5373;100&#x5230;139&#xFF09;&#x3002;&#x503C;&#x8D8A;&#x5927;&#x9759;&#x6001;&#x4F18;&#x5148;&#x7EA7;&#x8D8A;&#x4F4E;&#x3002; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">?</a></p>
+<ol>
+<li>/<em> linux-2.6.38.8/include/linux/sched.h </em>/  </li>
+<li>#define MAX_USER_RT_PRIO    100  </li>
+<li>#define MAX_RT_PRIO     MAX_USER_RT_PRIO  </li>
+<li></li>
+<li>#define MAX_PRIO        (MAX_RT_PRIO + 40)  </li>
+<li>#define DEFAULT_PRIO        (MAX_RT_PRIO + 20)  </li>
+</ol>
+<pre><code>/* linux-2.6.38.8/include/linux/sched.h */
+#define MAX_USER_RT_PRIO    100
+#define MAX_RT_PRIO        MAX_USER_RT_PRIO
+
+#define MAX_PRIO        (MAX_RT_PRIO + 40)
+#define DEFAULT_PRIO        (MAX_RT_PRIO + 20)
+</code></pre><p>&#x200B;    static_prio&#x7528;&#x4E8E;&#x4FDD;&#x5B58;&#x9759;&#x6001;&#x4F18;&#x5148;&#x7EA7;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;nice&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x6765;&#x8FDB;&#x884C;&#x4FEE;&#x6539;&#x3002;</p>
+<p>&#x200B;    rt_priority&#x7528;&#x4E8E;&#x4FDD;&#x5B58;&#x5B9E;&#x65F6;&#x4F18;&#x5148;&#x7EA7;&#x3002;</p>
+<p>&#x200B;    normal_prio&#x7684;&#x503C;&#x53D6;&#x51B3;&#x4E8E;&#x9759;&#x6001;&#x4F18;&#x5148;&#x7EA7;&#x548C;&#x8C03;&#x5EA6;&#x7B56;&#x7565;&#x3002;</p>
+<p>&#x200B;    prio&#x7528;&#x4E8E;&#x4FDD;&#x5B58;&#x52A8;&#x6001;&#x4F18;&#x5148;&#x7EA7;&#x3002;</p>
+<p>&#x200B;    policy&#x8868;&#x793A;&#x8FDB;&#x7A0B;&#x7684;&#x8C03;&#x5EA6;&#x7B56;&#x7565;&#xFF0C;&#x76EE;&#x524D;&#x4E3B;&#x8981;&#x6709;&#x4EE5;&#x4E0B;&#x4E94;&#x79CD;&#xFF1A; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">?</a></p>
+<ol>
+<li>#define SCHED_NORMAL        0  </li>
+<li>#define SCHED_FIFO      1  </li>
+<li>#define SCHED_RR        2  </li>
+<li>#define SCHED_BATCH     3  </li>
+<li>/<em> SCHED_ISO: reserved but not implemented yet </em>/  </li>
+<li>#define SCHED_IDLE      5  </li>
+</ol>
+<pre><code>#define SCHED_NORMAL        0
+#define SCHED_FIFO        1
+#define SCHED_RR        2
+#define SCHED_BATCH        3
+/* SCHED_ISO: reserved but not implemented yet */
+#define SCHED_IDLE        5
+</code></pre><p>&#x200B;    SCHED_NORMAL&#x7528;&#x4E8E;&#x666E;&#x901A;&#x8FDB;&#x7A0B;&#xFF0C;&#x901A;&#x8FC7;CFS&#x8C03;&#x5EA6;&#x5668;&#x5B9E;&#x73B0;&#x3002;SCHED_BATCH&#x7528;&#x4E8E;&#x975E;&#x4EA4;&#x4E92;&#x7684;&#x5904;&#x7406;&#x5668;&#x6D88;&#x8017;&#x578B;&#x8FDB;&#x7A0B;&#x3002;SCHED_IDLE&#x662F;&#x5728;&#x7CFB;&#x7EDF;&#x8D1F;&#x8F7D;&#x5F88;&#x4F4E;&#x65F6;&#x4F7F;&#x7528;&#x3002;</p>
+<p>&#x200B;    SCHED_FIFO&#xFF08;&#x5148;&#x5165;&#x5148;&#x51FA;&#x8C03;&#x5EA6;<a href="http://lib.csdn.net/base/datastructure" target="_blank">&#x7B97;&#x6CD5;</a>&#xFF09;&#x548C;SCHED_RR&#xFF08;&#x8F6E;&#x6D41;&#x8C03;&#x5EA6;&#x7B97;&#x6CD5;&#xFF09;&#x90FD;&#x662F;&#x5B9E;&#x65F6;&#x8C03;&#x5EA6;&#x7B56;&#x7565;&#x3002;</p>
+<p>&#x200B;    sched_class&#x7ED3;&#x6784;&#x4F53;&#x8868;&#x793A;&#x8C03;&#x5EA6;&#x7C7B;&#xFF0C;&#x76EE;&#x524D;&#x5185;&#x6838;&#x4E2D;&#x6709;&#x5B9E;&#x73B0;&#x4EE5;&#x4E0B;&#x56DB;&#x79CD;&#xFF1A; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7292563#" target="_blank">?</a></p>
+<ol>
+<li>/<em> linux-2.6.38.8/kernel/sched_fair.c </em>/   </li>
+<li><strong>static const struct sched_class fair_sched_class;</strong>  </li>
+<li>/<em> linux-2.6.38.8/kernel/sched_rt.c </em>/  </li>
+<li><strong>static const struct sched_class rt_sched_class;</strong>  </li>
+<li>/<em> linux-2.6.38.8/kernel/sched_idletask.c </em>/  </li>
+<li><strong>static const struct sched_class idle_sched_class;</strong>  </li>
+<li>/<em> linux-2.6.38.8/kernel/sched_stoptask.c </em>/  </li>
+<li><strong>static const struct sched_class stop_sched_class;</strong>  </li>
+</ol>
+<pre><code>/* linux-2.6.38.8/kernel/sched_fair.c */ 
+static const struct sched_class fair_sched_class;
+/* linux-2.6.38.8/kernel/sched_rt.c */
+static const struct sched_class rt_sched_class;
+/* linux-2.6.38.8/kernel/sched_idletask.c */
+static const struct sched_class idle_sched_class;
+/* linux-2.6.38.8/kernel/sched_stoptask.c */
+static const struct sched_class stop_sched_class;
+</code></pre><p>&#x200B;    se&#x548C;rt&#x90FD;&#x662F;&#x8C03;&#x7528;&#x5B9E;&#x4F53;&#xFF0C;&#x4E00;&#x4E2A;&#x7528;&#x4E8E;&#x666E;&#x901A;&#x8FDB;&#x7A0B;&#xFF0C;&#x4E00;&#x4E2A;&#x7528;&#x4E8E;&#x5B9E;&#x65F6;&#x8FDB;&#x7A0B;&#xFF0C;&#x6BCF;&#x4E2A;&#x8FDB;&#x7A0B;&#x90FD;&#x6709;&#x5176;&#x4E2D;&#x4E4B;&#x4E00;&#x7684;&#x5B9E;&#x4F53;&#x3002;</p>
+<p>&#x200B;    cpus_allowed&#x7528;&#x4E8E;&#x63A7;&#x5236;&#x8FDB;&#x7A0B;&#x53EF;&#x4EE5;&#x5728;&#x54EA;&#x91CC;&#x5904;&#x7406;&#x5668;&#x4E0A;&#x8FD0;&#x884C;&#x3002;</p>
+<p>&#x200B;        </p>
+<p>9&#x3001;&#x8FDB;&#x7A0B;&#x5730;&#x5740;&#x7A7A;&#x95F4; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>&#x200B;    <strong>struct mm_struct *mm, *active_mm;</strong>  </li>
+<li>#ifdef CONFIG_COMPAT_BRK  </li>
+<li>&#x200B;    unsigned brk_randomized:1;  </li>
+<li>#endif  </li>
+<li>#if defined(SPLIT_RSS_COUNTING)  </li>
+<li>&#x200B;    <strong>struct task_rss_stat    rss_stat;</strong>  </li>
+<li>#endif  </li>
+</ol>
+<p><a href="javascript:;" target="_blank"><a href="http://static.blog.csdn.net/images/save_snippets.png" data-lightbox="50a0d774-2fa5-4d9f-8036-821b15289007" data-title="img" target="_blank"><img src="http://static.blog.csdn.net/images/save_snippets.png" alt="img"></a></a></p>
+<pre><code>    struct mm_struct *mm, *active_mm;
+#ifdef CONFIG_COMPAT_BRK
+    unsigned brk_randomized:1;
+#endif
+#if defined(SPLIT_RSS_COUNTING)
+    struct task_rss_stat    rss_stat;
+#endif
+</code></pre><p>&#x200B;    mm&#x6307;&#x5411;&#x8FDB;&#x7A0B;&#x6240;&#x62E5;&#x6709;&#x7684;&#x5185;&#x5B58;&#x63CF;&#x8FF0;&#x7B26;&#xFF0C;&#x800C;active_mm&#x6307;&#x5411;&#x8FDB;&#x7A0B;&#x8FD0;&#x884C;&#x65F6;&#x6240;&#x4F7F;&#x7528;&#x7684;&#x5185;&#x5B58;&#x63CF;&#x8FF0;&#x7B26;&#x3002;&#x5BF9;&#x4E8E;&#x666E;&#x901A;&#x8FDB;&#x7A0B;&#x800C;&#x8A00;&#xFF0C;&#x8FD9;&#x4E24;&#x4E2A;&#x6307;&#x9488;&#x53D8;&#x91CF;&#x7684;&#x503C;&#x76F8;&#x540C;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x5185;&#x6838;&#x7EBF;&#x7A0B;&#x4E0D;&#x62E5;&#x6709;&#x4EFB;&#x4F55;&#x5185;&#x5B58;&#x63CF;&#x8FF0;&#x7B26;&#xFF0C;&#x6240;&#x4EE5;&#x5B83;&#x4EEC;&#x7684;mm&#x6210;&#x5458;&#x603B;&#x662F;&#x4E3A;NULL&#x3002;&#x5F53;&#x5185;&#x6838;&#x7EBF;&#x7A0B;&#x5F97;&#x4EE5;&#x8FD0;&#x884C;&#x65F6;&#xFF0C;&#x5B83;&#x7684;active_mm&#x6210;&#x5458;&#x88AB;&#x521D;&#x59CB;&#x5316;&#x4E3A;&#x524D;&#x4E00;&#x4E2A;&#x8FD0;&#x884C;&#x8FDB;&#x7A0B;&#x7684;active_mm&#x503C;&#x3002;</p>
+<p>&#x200B;    brk_randomized&#x7684;&#x7528;&#x6CD5;&#x5728;<a href="http://lkml.indiana.edu/hypermail/[Linux](http://lib.csdn.net/base/linux)/kernel/1104.1/00196.html&#x4E0A;&#x6709;&#x4ECB;&#x7ECD;&#xFF0C;&#x7528;&#x6765;&#x786E;&#x5B9A;&#x5BF9;&#x968F;&#x673A;&#x5806;&#x5185;&#x5B58;&#x7684;&#x63A2;&#x6D4B;&#x3002;" target="_blank">http://lkml.indiana.edu/hypermail/[Linux](http://lib.csdn.net/base/linux)/kernel/1104.1/00196.html&#x4E0A;&#x6709;&#x4ECB;&#x7ECD;&#xFF0C;&#x7528;&#x6765;&#x786E;&#x5B9A;&#x5BF9;&#x968F;&#x673A;&#x5806;&#x5185;&#x5B58;&#x7684;&#x63A2;&#x6D4B;&#x3002;</a></p>
+<p>&#x200B;    rss_stat&#x7528;&#x6765;&#x8BB0;&#x5F55;&#x7F13;&#x51B2;&#x4FE1;&#x606F;&#x3002; </p>
+<p>&#x200B;    10&#x3001;&#x5224;&#x65AD;&#x6807;&#x5FD7; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>int exit_code, exit_signal;  </li>
+<li>int pdeath_signal;  /<em>  The signal sent when the parent dies  </em>/  </li>
+<li>/<em> ??? </em>/  </li>
+<li>unsigned int personality;  </li>
+<li>unsigned did_exec:1;  </li>
+<li>unsigned in_execve:1;   /* Tell the LSMs that the process is doing an </li>
+<li>&#x200B;             * execve */  </li>
+<li>unsigned in_iowait:1;  </li>
+<li></li>
+<li></li>
+<li>/<em> Revert to default priority/policy when forking </em>/  </li>
+<li>unsigned sched_reset_on_fork:1;  </li>
+</ol>
+<pre><code>    int exit_code, exit_signal;
+    int pdeath_signal;  /*  The signal sent when the parent dies  */
+    /* ??? */
+    unsigned int personality;
+    unsigned did_exec:1;
+    unsigned in_execve:1;    /* Tell the LSMs that the process is doing an
+                 * execve */
+    unsigned in_iowait:1;
+
+
+    /* Revert to default priority/policy when forking */
+    unsigned sched_reset_on_fork:1;
+</code></pre><p>&#x200B;    exit_code&#x7528;&#x4E8E;&#x8BBE;&#x7F6E;&#x8FDB;&#x7A0B;&#x7684;&#x7EC8;&#x6B62;&#x4EE3;&#x53F7;&#xFF0C;&#x8FD9;&#x4E2A;&#x503C;&#x8981;&#x4E48;&#x662F;_exit()&#x6216;exit_group()&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x53C2;&#x6570;&#xFF08;&#x6B63;&#x5E38;&#x7EC8;&#x6B62;&#xFF09;&#xFF0C;&#x8981;&#x4E48;&#x662F;&#x7531;&#x5185;&#x6838;&#x63D0;&#x4F9B;&#x7684;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;&#x4EE3;&#x53F7;&#xFF08;&#x5F02;&#x5E38;&#x7EC8;&#x6B62;&#xFF09;&#x3002;</p>
+<p>&#x200B;    exit_signal&#x88AB;&#x7F6E;&#x4E3A;-1&#x65F6;&#x8868;&#x793A;&#x662F;&#x67D0;&#x4E2A;&#x7EBF;&#x7A0B;&#x7EC4;&#x4E2D;&#x7684;&#x4E00;&#x5458;&#x3002;&#x53EA;&#x6709;&#x5F53;&#x7EBF;&#x7A0B;&#x7EC4;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x6210;&#x5458;&#x7EC8;&#x6B62;&#x65F6;&#xFF0C;&#x624D;&#x4F1A;&#x4EA7;&#x751F;&#x4E00;&#x4E2A;&#x4FE1;&#x53F7;&#xFF0C;&#x4EE5;&#x901A;&#x77E5;&#x7EBF;&#x7A0B;&#x7EC4;&#x7684;&#x9886;&#x5934;&#x8FDB;&#x7A0B;&#x7684;&#x7236;&#x8FDB;&#x7A0B;&#x3002;</p>
+<p>&#x200B;    pdeath_signal&#x7528;&#x4E8E;&#x5224;&#x65AD;&#x7236;&#x8FDB;&#x7A0B;&#x7EC8;&#x6B62;&#x65F6;&#x53D1;&#x9001;&#x4FE1;&#x53F7;&#x3002;</p>
+<p>&#x200B;    personality&#x7528;&#x4E8E;&#x5904;&#x7406;&#x4E0D;&#x540C;&#x7684;ABI&#xFF0C;&#x5B83;&#x7684;&#x53EF;&#x80FD;&#x53D6;&#x503C;&#x5982;&#x4E0B;&#xFF1A; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li><strong>enum {</strong>  </li>
+<li>&#x200B;    PER_LINUX =     0x0000,  </li>
+<li>&#x200B;    PER_LINUX_32BIT =   0x0000 | ADDR_LIMIT_32BIT,  </li>
+<li>&#x200B;    PER_LINUX_FDPIC =   0x0000 | FDPIC_FUNCPTRS,  </li>
+<li>&#x200B;    PER_SVR4 =      0x0001 | STICKY_TIMEOUTS | MMAP_PAGE_ZERO,  </li>
+<li>&#x200B;    PER_SVR3 =      0x0002 | STICKY_TIMEOUTS | SHORT_INODE,  </li>
+<li>&#x200B;    PER_SCOSVR3 =       0x0003 | STICKY_TIMEOUTS |  </li>
+<li>&#x200B;                     WHOLE_SECONDS | SHORT_INODE,  </li>
+<li>&#x200B;    PER_OSR5 =      0x0003 | STICKY_TIMEOUTS | WHOLE_SECONDS,  </li>
+<li>&#x200B;    PER_WYSEV386 =      0x0004 | STICKY_TIMEOUTS | SHORT_INODE,  </li>
+<li>&#x200B;    PER_ISCR4 =     0x0005 | STICKY_TIMEOUTS,  </li>
+<li>&#x200B;    PER_BSD =       0x0006,  </li>
+<li>&#x200B;    PER_SUNOS =     0x0006 | STICKY_TIMEOUTS,  </li>
+<li>&#x200B;    PER_XENIX =     0x0007 | STICKY_TIMEOUTS | SHORT_INODE,  </li>
+<li>&#x200B;    PER_LINUX32 =       0x0008,  </li>
+<li>&#x200B;    PER_LINUX32_3GB =   0x0008 | ADDR_LIMIT_3GB,  </li>
+<li>&#x200B;    PER_IRIX32 =        0x0009 | STICKY_TIMEOUTS,/<em> IRIX5 32-bit </em>/  </li>
+<li>&#x200B;    PER_IRIXN32 =       0x000a | STICKY_TIMEOUTS,/<em> IRIX6 new 32-bit </em>/  </li>
+<li>&#x200B;    PER_IRIX64 =        0x000b | STICKY_TIMEOUTS,/<em> IRIX6 64-bit </em>/  </li>
+<li>&#x200B;    PER_RISCOS =        0x000c,  </li>
+<li>&#x200B;    PER_SOLARIS =       0x000d | STICKY_TIMEOUTS,  </li>
+<li>&#x200B;    PER_UW7 =       0x000e | STICKY_TIMEOUTS | MMAP_PAGE_ZERO,  </li>
+<li>&#x200B;    PER_OSF4 =      0x000f,          /<em> OSF/1 v4 </em>/  </li>
+<li>&#x200B;    PER_HPUX =      0x0010,  </li>
+<li>&#x200B;    PER_MASK =      0x00ff,  </li>
+<li>};  </li>
+</ol>
+<pre><code>enum {
+    PER_LINUX =        0x0000,
+    PER_LINUX_32BIT =    0x0000 | ADDR_LIMIT_32BIT,
+    PER_LINUX_FDPIC =    0x0000 | FDPIC_FUNCPTRS,
+    PER_SVR4 =        0x0001 | STICKY_TIMEOUTS | MMAP_PAGE_ZERO,
+    PER_SVR3 =        0x0002 | STICKY_TIMEOUTS | SHORT_INODE,
+    PER_SCOSVR3 =        0x0003 | STICKY_TIMEOUTS |
+                     WHOLE_SECONDS | SHORT_INODE,
+    PER_OSR5 =        0x0003 | STICKY_TIMEOUTS | WHOLE_SECONDS,
+    PER_WYSEV386 =        0x0004 | STICKY_TIMEOUTS | SHORT_INODE,
+    PER_ISCR4 =        0x0005 | STICKY_TIMEOUTS,
+    PER_BSD =        0x0006,
+    PER_SUNOS =        0x0006 | STICKY_TIMEOUTS,
+    PER_XENIX =        0x0007 | STICKY_TIMEOUTS | SHORT_INODE,
+    PER_LINUX32 =        0x0008,
+    PER_LINUX32_3GB =    0x0008 | ADDR_LIMIT_3GB,
+    PER_IRIX32 =        0x0009 | STICKY_TIMEOUTS,/* IRIX5 32-bit */
+    PER_IRIXN32 =        0x000a | STICKY_TIMEOUTS,/* IRIX6 new 32-bit */
+    PER_IRIX64 =        0x000b | STICKY_TIMEOUTS,/* IRIX6 64-bit */
+    PER_RISCOS =        0x000c,
+    PER_SOLARIS =        0x000d | STICKY_TIMEOUTS,
+    PER_UW7 =        0x000e | STICKY_TIMEOUTS | MMAP_PAGE_ZERO,
+    PER_OSF4 =        0x000f,             /* OSF/1 v4 */
+    PER_HPUX =        0x0010,
+    PER_MASK =        0x00ff,
+};
+</code></pre><p>&#x200B;    did_exec&#x7528;&#x4E8E;&#x8BB0;&#x5F55;&#x8FDB;&#x7A0B;&#x4EE3;&#x7801;&#x662F;&#x5426;&#x88AB;execve()&#x51FD;&#x6570;&#x6240;&#x6267;&#x884C;&#x3002;</p>
+<p>&#x200B;    in_execve&#x7528;&#x4E8E;&#x901A;&#x77E5;LSM&#x662F;&#x5426;&#x88AB;do_execve()&#x51FD;&#x6570;&#x6240;&#x8C03;&#x7528;&#x3002;&#x8BE6;&#x89C1;&#x8865;&#x4E01;&#x8BF4;&#x660E;&#xFF1A;<a href="http://lkml.indiana.edu/hypermail/linux/kernel/0901.1/00014.html" target="_blank">http://lkml.indiana.edu/hypermail/linux/kernel/0901.1/00014.html</a>&#x3002;</p>
+<p>&#x200B;    in_iowait&#x7528;&#x4E8E;&#x5224;&#x65AD;&#x662F;&#x5426;&#x8FDB;&#x884C;iowait&#x8BA1;&#x6570;&#x3002;</p>
+<p>&#x200B;    sched_reset_on_fork&#x7528;&#x4E8E;&#x5224;&#x65AD;&#x662F;&#x5426;&#x6062;&#x590D;&#x9ED8;&#x8BA4;&#x7684;&#x4F18;&#x5148;&#x7EA7;&#x6216;&#x8C03;&#x5EA6;&#x7B56;&#x7565;&#x3002;</p>
+<p>&#x200B;    11&#x3001;&#x65F6;&#x95F4; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>&#x200B;    cputime_t utime, stime, utimescaled, stimescaled;  </li>
+<li>&#x200B;    cputime_t gtime;  </li>
+<li>#ifndef CONFIG_VIRT_CPU_ACCOUNTING  </li>
+<li>&#x200B;    cputime_t prev_utime, prev_stime;  </li>
+<li>#endif  </li>
+<li>&#x200B;    unsigned long nvcsw, nivcsw; /<em> context switch counts </em>/  </li>
+<li>&#x200B;    <strong>struct timespec start_time;         /* monotonic time */</strong>  </li>
+<li>&#x200B;    <strong>struct timespec real_start_time;    /* boot based time */</strong>  </li>
+<li>&#x200B;    <strong>struct task_cputime cputime_expires;</strong>  </li>
+<li>&#x200B;    <strong>struct list_head cpu_timers[3];</strong>  </li>
+<li>#ifdef CONFIG_DETECT_HUNG_TASK  </li>
+<li>/<em> hung task detection </em>/  </li>
+<li>&#x200B;    unsigned long last_switch_count;  </li>
+<li>#endif  </li>
+</ol>
+<pre><code>    cputime_t utime, stime, utimescaled, stimescaled;
+    cputime_t gtime;
+#ifndef CONFIG_VIRT_CPU_ACCOUNTING
+    cputime_t prev_utime, prev_stime;
+#endif
+    unsigned long nvcsw, nivcsw; /* context switch counts */
+    struct timespec start_time;         /* monotonic time */
+    struct timespec real_start_time;    /* boot based time */
+    struct task_cputime cputime_expires;
+    struct list_head cpu_timers[3];
+#ifdef CONFIG_DETECT_HUNG_TASK
+/* hung task detection */
+    unsigned long last_switch_count;
+#endif
+</code></pre><p>&#x200B;    utime/stime&#x7528;&#x4E8E;&#x8BB0;&#x5F55;&#x8FDB;&#x7A0B;&#x5728;&#x7528;&#x6237;&#x6001;/&#x5185;&#x6838;&#x6001;&#x4E0B;&#x6240;&#x7ECF;&#x8FC7;&#x7684;&#x8282;&#x62CD;&#x6570;&#xFF08;&#x5B9A;&#x65F6;&#x5668;&#xFF09;&#x3002;prev_utime/prev_stime&#x662F;&#x5148;&#x524D;&#x7684;&#x8FD0;&#x884C;&#x65F6;&#x95F4;&#xFF0C;&#x8BF7;&#x53C2;&#x8003;&#x8865;&#x4E01;&#x8BF4;&#x660E;<a href="http://lkml.indiana.edu/hypermail/linux/kernel/1003.3/02431.html" target="_blank">http://lkml.indiana.edu/hypermail/linux/kernel/1003.3/02431.html</a>&#x3002;</p>
+<p>&#x200B;    utimescaled/stimescaled&#x4E5F;&#x662F;&#x7528;&#x4E8E;&#x8BB0;&#x5F55;&#x8FDB;&#x7A0B;&#x5728;&#x7528;&#x6237;&#x6001;/&#x5185;&#x6838;&#x6001;&#x7684;&#x8FD0;&#x884C;&#x65F6;&#x95F4;&#xFF0C;&#x4F46;&#x5B83;&#x4EEC;&#x4EE5;&#x5904;&#x7406;&#x5668;&#x7684;&#x9891;&#x7387;&#x4E3A;&#x523B;&#x5EA6;&#x3002;</p>
+<p>&#x200B;    gtime&#x662F;&#x4EE5;&#x8282;&#x62CD;&#x8BA1;&#x6570;&#x7684;&#x865A;&#x62DF;&#x673A;&#x8FD0;&#x884C;&#x65F6;&#x95F4;&#xFF08;guest time&#xFF09;&#x3002;</p>
+<p>&#x200B;    nvcsw/nivcsw&#x662F;&#x81EA;&#x613F;&#xFF08;voluntary&#xFF09;/&#x975E;&#x81EA;&#x613F;&#xFF08;involuntary&#xFF09;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#x8BA1;&#x6570;&#x3002;last_switch_count&#x662F;nvcsw&#x548C;nivcsw&#x7684;&#x603B;&#x548C;&#x3002;</p>
+<p>&#x200B;    start_time&#x548C;real_start_time&#x90FD;&#x662F;&#x8FDB;&#x7A0B;&#x521B;&#x5EFA;&#x65F6;&#x95F4;&#xFF0C;real_start_time&#x8FD8;&#x5305;&#x542B;&#x4E86;&#x8FDB;&#x7A0B;&#x7761;&#x7720;&#x65F6;&#x95F4;&#xFF0C;&#x5E38;&#x7528;&#x4E8E;/proc/pid/stat&#xFF0C;&#x8865;&#x4E01;&#x8BF4;&#x660E;&#x8BF7;&#x53C2;&#x8003;<a href="http://lkml.indiana.edu/hypermail/linux/kernel/0705.0/2094.html" target="_blank">http://lkml.indiana.edu/hypermail/linux/kernel/0705.0/2094.html</a>&#x3002;</p>
+<p>&#x200B;    cputime_expires&#x7528;&#x6765;&#x7EDF;&#x8BA1;&#x8FDB;&#x7A0B;&#x6216;&#x8FDB;&#x7A0B;&#x7EC4;&#x88AB;&#x8DDF;&#x8E2A;&#x7684;&#x5904;&#x7406;&#x5668;&#x65F6;&#x95F4;&#xFF0C;&#x5176;&#x4E2D;&#x7684;&#x4E09;&#x4E2A;&#x6210;&#x5458;&#x5BF9;&#x5E94;&#x7740;cpu_timers[3]&#x7684;&#x4E09;&#x4E2A;&#x94FE;&#x8868;&#x3002;</p>
+<p>&#x200B;    12&#x3001;&#x4FE1;&#x53F7;&#x5904;&#x7406; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>/<em> signal handlers </em>/  </li>
+<li>&#x200B;    <strong>struct signal_struct *signal;</strong>  </li>
+<li>&#x200B;    <strong>struct sighand_struct *sighand;</strong>  </li>
+<li></li>
+<li>&#x200B;    sigset_t blocked, real_blocked;  </li>
+<li>&#x200B;    sigset_t saved_sigmask; /<em> restored if set_restore_sigmask() was used </em>/  </li>
+<li>&#x200B;    <strong>struct sigpending pending;</strong>  </li>
+<li></li>
+<li>&#x200B;    unsigned long sas_ss_sp;  </li>
+<li>&#x200B;    size_t sas_ss_size;  </li>
+<li>&#x200B;    int (<em>notifier)(**void \</em>priv);**  </li>
+<li>&#x200B;    <strong>void *notifier_data;</strong>  </li>
+<li>&#x200B;    sigset_t *notifier_mask;  </li>
+</ol>
+<pre><code>/* signal handlers */
+    struct signal_struct *signal;
+    struct sighand_struct *sighand;
+
+    sigset_t blocked, real_blocked;
+    sigset_t saved_sigmask;    /* restored if set_restore_sigmask() was used */
+    struct sigpending pending;
+
+    unsigned long sas_ss_sp;
+    size_t sas_ss_size;
+    int (*notifier)(void *priv);
+    void *notifier_data;
+    sigset_t *notifier_mask;
+</code></pre><p>&#x200B;    signal&#x6307;&#x5411;&#x8FDB;&#x7A0B;&#x7684;&#x4FE1;&#x53F7;&#x63CF;&#x8FF0;&#x7B26;&#x3002;</p>
+<p>&#x200B;    sighand&#x6307;&#x5411;&#x8FDB;&#x7A0B;&#x7684;&#x4FE1;&#x53F7;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x63CF;&#x8FF0;&#x7B26;&#x3002;</p>
+<p>&#x200B;    blocked&#x8868;&#x793A;&#x88AB;&#x963B;&#x585E;&#x4FE1;&#x53F7;&#x7684;&#x63A9;&#x7801;&#xFF0C;real_blocked&#x8868;&#x793A;&#x4E34;&#x65F6;&#x63A9;&#x7801;&#x3002;</p>
+<p>&#x200B;    pending&#x5B58;&#x653E;&#x79C1;&#x6709;&#x6302;&#x8D77;&#x4FE1;&#x53F7;&#x7684;<a href="http://lib.csdn.net/base/datastructure" target="_blank">&#x6570;&#x636E;&#x7ED3;&#x6784;</a>&#x3002;</p>
+<p>&#x200B;    sas_ss_sp&#x662F;&#x4FE1;&#x53F7;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x5907;&#x7528;&#x5806;&#x6808;&#x7684;&#x5730;&#x5740;&#xFF0C;sas_ss_size&#x8868;&#x793A;&#x5806;&#x6808;&#x7684;&#x5927;&#x5C0F;&#x3002;</p>
+<p>&#x200B;    &#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x5E38;&#x7528;notifier&#x6307;&#x5411;&#x7684;&#x51FD;&#x6570;&#x6765;&#x963B;&#x585E;&#x8FDB;&#x7A0B;&#x7684;&#x67D0;&#x4E9B;&#x4FE1;&#x53F7;&#xFF08;notifier_mask&#x662F;&#x8FD9;&#x4E9B;&#x4FE1;&#x53F7;&#x7684;&#x4F4D;&#x63A9;&#x7801;&#xFF09;&#xFF0C;notifier_data&#x6307;&#x7684;&#x662F;notifier&#x6240;&#x6307;&#x5411;&#x7684;&#x51FD;&#x6570;&#x53EF;&#x80FD;&#x4F7F;&#x7528;&#x7684;&#x6570;&#x636E;&#x3002;</p>
+<p>&#x200B;    13&#x3001;&#x5176;&#x4ED6;</p>
+<p>&#x200B;    &#xFF08;1&#xFF09;&#x3001;&#x7528;&#x4E8E;&#x4FDD;&#x62A4;&#x8D44;&#x6E90;&#x5206;&#x914D;&#x6216;&#x91CA;&#x653E;&#x7684;&#x81EA;&#x65CB;&#x9501; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>/* Protection of (de-)allocation: mm, files, fs, tty, keyrings, mems_allowed, </li>
+<li>* mempolicy */  </li>
+<li>&#x200B;    spinlock_t alloc_lock;  </li>
+</ol>
+<pre><code>/* Protection of (de-)allocation: mm, files, fs, tty, keyrings, mems_allowed,
+ * mempolicy */
+    spinlock_t alloc_lock;
+</code></pre><p>&#x200B;    &#xFF08;2&#xFF09;&#x3001;&#x8FDB;&#x7A0B;&#x63CF;&#x8FF0;&#x7B26;&#x4F7F;&#x7528;&#x8BA1;&#x6570;&#xFF0C;&#x88AB;&#x7F6E;&#x4E3A;2&#x65F6;&#xFF0C;&#x8868;&#x793A;&#x8FDB;&#x7A0B;&#x63CF;&#x8FF0;&#x7B26;&#x6B63;&#x5728;&#x88AB;&#x4F7F;&#x7528;&#x800C;&#x4E14;&#x5176;&#x76F8;&#x5E94;&#x7684;&#x8FDB;&#x7A0B;&#x5904;&#x4E8E;&#x6D3B;&#x52A8;&#x72B6;&#x6001;&#x3002; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>atomic_t usage;  </li>
+</ol>
+<pre><code>    atomic_t usage;
+</code></pre><p>&#x200B;    &#xFF08;3&#xFF09;&#x3001;&#x7528;&#x4E8E;&#x8868;&#x793A;&#x83B7;&#x53D6;&#x5927;&#x5185;&#x6838;&#x9501;&#x7684;&#x6B21;&#x6570;&#xFF0C;&#x5982;&#x679C;&#x8FDB;&#x7A0B;&#x672A;&#x83B7;&#x5F97;&#x8FC7;&#x9501;&#xFF0C;&#x5219;&#x7F6E;&#x4E3A;-1&#x3002; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>int lock_depth;     /<em> BKL lock depth </em>/  </li>
+</ol>
+<pre><code>    int lock_depth;        /* BKL lock depth */
+</code></pre><p>&#x200B;    &#xFF08;4&#xFF09;&#x3001;&#x5728;SMP&#x4E0A;&#x5E2E;&#x52A9;&#x5B9E;&#x73B0;&#x65E0;&#x52A0;&#x9501;&#x7684;&#x8FDB;&#x7A0B;&#x5207;&#x6362;&#xFF08;unlocked context switches&#xFF09; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>#ifdef CONFIG_SMP  </li>
+<li>#ifdef __ARCH_WANT_UNLOCKED_CTXSW  </li>
+<li>&#x200B;    int oncpu;  </li>
+<li>#endif  </li>
+<li>#endif  </li>
+</ol>
+<pre><code>#ifdef CONFIG_SMP
+#ifdef __ARCH_WANT_UNLOCKED_CTXSW
+    int oncpu;
+#endif
+#endif
+</code></pre><p>&#x200B;    &#xFF08;5&#xFF09;&#x3001;preempt_notifier&#x7ED3;&#x6784;&#x4F53;&#x94FE;&#x8868; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>#ifdef CONFIG_PREEMPT_NOTIFIERS  </li>
+<li>&#x200B;    /<em> list of struct preempt_notifier: </em>/  </li>
+<li>&#x200B;    <strong>struct hlist_head preempt_notifiers;</strong>  </li>
+<li>#endif  </li>
+</ol>
+<pre><code>#ifdef CONFIG_PREEMPT_NOTIFIERS
+    /* list of struct preempt_notifier: */
+    struct hlist_head preempt_notifiers;
+#endif
+</code></pre><p>&#x200B;    &#xFF08;6&#xFF09;&#x3001;FPU&#x4F7F;&#x7528;&#x8BA1;&#x6570; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>unsigned char fpu_counter;  </li>
+</ol>
+<pre><code>    unsigned char fpu_counter;
+</code></pre><p>&#x200B;    &#xFF08;7&#xFF09;&#x3001;blktrace&#x662F;&#x4E00;&#x4E2A;&#x9488;&#x5BF9;Linux&#x5185;&#x6838;&#x4E2D;&#x5757;&#x8BBE;&#x5907;I/O&#x5C42;&#x7684;&#x8DDF;&#x8E2A;&#x5DE5;&#x5177;&#x3002; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>#ifdef CONFIG_BLK_DEV_IO_TRACE  </li>
+<li>&#x200B;    unsigned int btrace_seq;  </li>
+<li>#endif  </li>
+</ol>
+<pre><code>#ifdef CONFIG_BLK_DEV_IO_TRACE
+    unsigned int btrace_seq;
+#endif
+</code></pre><p>&#x200B;    &#xFF08;8&#xFF09;&#x3001;RCU&#x540C;&#x6B65;&#x539F;&#x8BED; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>#ifdef CONFIG_PREEMPT_RCU  </li>
+<li>&#x200B;    int rcu_read_lock_nesting;  </li>
+<li>&#x200B;    char rcu_read_unlock_special;  </li>
+<li>&#x200B;    <strong>struct list_head rcu_node_entry;</strong>  </li>
+<li>#endif /<em> #ifdef CONFIG_PREEMPT_RCU </em>/  </li>
+<li>#ifdef CONFIG_TREE_PREEMPT_RCU  </li>
+<li>&#x200B;    <strong>struct rcu_node *rcu_blocked_node;</strong>  </li>
+<li>#endif /<em> #ifdef CONFIG_TREE_PREEMPT_RCU </em>/  </li>
+<li>#ifdef CONFIG_RCU_BOOST  </li>
+<li>&#x200B;    <strong>struct rt_mutex *rcu_boost_mutex;</strong>  </li>
+<li>#endif /<em> #ifdef CONFIG_RCU_BOOST </em>/  </li>
+</ol>
+<pre><code>#ifdef CONFIG_PREEMPT_RCU
+    int rcu_read_lock_nesting;
+    char rcu_read_unlock_special;
+    struct list_head rcu_node_entry;
+#endif /* #ifdef CONFIG_PREEMPT_RCU */
+#ifdef CONFIG_TREE_PREEMPT_RCU
+    struct rcu_node *rcu_blocked_node;
+#endif /* #ifdef CONFIG_TREE_PREEMPT_RCU */
+#ifdef CONFIG_RCU_BOOST
+    struct rt_mutex *rcu_boost_mutex;
+#endif /* #ifdef CONFIG_RCU_BOOST */
+</code></pre><p>&#x200B;    &#xFF08;9&#xFF09;&#x3001;&#x7528;&#x4E8E;&#x8C03;&#x5EA6;&#x5668;&#x7EDF;&#x8BA1;&#x8FDB;&#x7A0B;&#x7684;&#x8FD0;&#x884C;&#x4FE1;&#x606F; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>#if defined(CONFIG_SCHEDSTATS) || defined(CONFIG_TASK_DELAY_ACCT)  </li>
+<li>&#x200B;    <strong>struct sched_info sched_info;</strong>  </li>
+<li>#endif  </li>
+</ol>
+<pre><code>#if defined(CONFIG_SCHEDSTATS) || defined(CONFIG_TASK_DELAY_ACCT)
+    struct sched_info sched_info;
+#endif
+</code></pre><p>&#x200B;    &#xFF08;10&#xFF09;&#x3001;&#x7528;&#x4E8E;&#x6784;&#x5EFA;&#x8FDB;&#x7A0B;&#x94FE;&#x8868; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li><strong>struct list_head tasks;</strong>  </li>
+</ol>
+<pre><code>    struct list_head tasks;
+</code></pre><p>&#x200B;    &#xFF08;11&#xFF09;&#x3001;to limit pushing to one attempt </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>#ifdef CONFIG_SMP  </li>
+<li>&#x200B;    <strong>struct plist_node pushable_tasks;</strong>  </li>
+<li>#endif  </li>
+</ol>
+<pre><code>#ifdef CONFIG_SMP
+    struct plist_node pushable_tasks;
+#endif
+</code></pre><p>&#x200B;    &#x8865;&#x4E01;&#x8BF4;&#x660E;&#x8BF7;&#x53C2;&#x8003;&#xFF1A;<a href="http://lkml.indiana.edu/hypermail/linux/kernel/0808.3/0503.html" target="_blank">http://lkml.indiana.edu/hypermail/linux/kernel/0808.3/0503.html</a></p>
+<p>&#x200B;    &#xFF08;12&#xFF09;&#x3001;&#x9632;&#x6B62;&#x5185;&#x6838;&#x5806;&#x6808;&#x6EA2;&#x51FA; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>#ifdef CONFIG_CC_STACKPROTECTOR  </li>
+<li>&#x200B;    /<em> Canary value for the -fstack-protector gcc feature </em>/  </li>
+<li>&#x200B;    unsigned long stack_canary;  </li>
+<li>#endif  </li>
+</ol>
+<pre><code>#ifdef CONFIG_CC_STACKPROTECTOR
+    /* Canary value for the -fstack-protector gcc feature */
+    unsigned long stack_canary;
+#endif
+</code></pre><p>&#x200B;    &#x5728;GCC&#x7F16;&#x8BD1;&#x5185;&#x6838;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x52A0;&#x4E0A;-fstack-protector&#x9009;&#x9879;&#x3002;</p>
+<p>&#x200B;    &#xFF08;13&#xFF09;&#x3001;PID&#x6563;&#x5217;&#x8868;&#x548C;&#x94FE;&#x8868; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>/<em> PID/PID hash table linkage. </em>/  </li>
+<li><strong>struct pid_link pids[PIDTYPE_MAX];</strong>  </li>
+<li><strong>struct list_head thread_group; //&#x7EBF;&#x7A0B;&#x7EC4;&#x4E2D;&#x6240;&#x6709;&#x8FDB;&#x7A0B;&#x7684;&#x94FE;&#x8868;</strong>  </li>
+</ol>
+<pre><code>    /* PID/PID hash table linkage. */
+    struct pid_link pids[PIDTYPE_MAX];
+    struct list_head thread_group; //&#x7EBF;&#x7A0B;&#x7EC4;&#x4E2D;&#x6240;&#x6709;&#x8FDB;&#x7A0B;&#x7684;&#x94FE;&#x8868;
+</code></pre><p>&#x200B;    &#xFF08;14&#xFF09;&#x3001;do_fork&#x51FD;&#x6570; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li><strong>struct completion *vfork_done;      /* for vfork() */</strong>  </li>
+<li>int __user <em>set_child_tid;      /</em> CLONE_CHILD_SETTID */  </li>
+<li>int __user <em>clear_child_tid;        /</em> CLONE_CHILD_CLEARTID */  </li>
+</ol>
+<pre><code>    struct completion *vfork_done;        /* for vfork() */
+    int __user *set_child_tid;        /* CLONE_CHILD_SETTID */
+    int __user *clear_child_tid;        /* CLONE_CHILD_CLEARTID */
+</code></pre><p>&#x200B;    &#x5728;&#x6267;&#x884C;do_fork()&#x65F6;&#xFF0C;&#x5982;&#x679C;&#x7ED9;&#x5B9A;&#x7279;&#x522B;&#x6807;&#x5FD7;&#xFF0C;&#x5219;vfork_done&#x4F1A;&#x6307;&#x5411;&#x4E00;&#x4E2A;&#x7279;&#x6B8A;&#x5730;&#x5740;&#x3002;</p>
+<p>&#x200B;    &#x5982;&#x679C;copy_process&#x51FD;&#x6570;&#x7684;clone_flags&#x53C2;&#x6570;&#x7684;&#x503C;&#x88AB;&#x7F6E;&#x4E3A;CLONE_CHILD_SETTID&#x6216;CLONE_CHILD_CLEARTID&#xFF0C;&#x5219;&#x4F1A;&#x628A;child_tidptr&#x53C2;&#x6570;&#x7684;&#x503C;&#x5206;&#x522B;&#x590D;&#x5236;&#x5230;set_child_tid&#x548C;clear_child_tid&#x6210;&#x5458;&#x3002;&#x8FD9;&#x4E9B;&#x6807;&#x5FD7;&#x8BF4;&#x660E;&#x5FC5;&#x987B;&#x6539;&#x53D8;&#x5B50;&#x8FDB;&#x7A0B;&#x7528;&#x6237;&#x6001;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#x7684;child_tidptr&#x6240;&#x6307;&#x5411;&#x7684;&#x53D8;&#x91CF;&#x7684;&#x503C;&#x3002;</p>
+<p>&#x200B;    &#xFF08;15&#xFF09;&#x3001;&#x7F3A;&#x9875;&#x7EDF;&#x8BA1; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>/<em> mm fault and swap info: this can arguably be seen as either mm-specific or thread-specific </em>/  </li>
+<li>&#x200B;    unsigned long min_flt, maj_flt;  </li>
+</ol>
+<pre><code>/* mm fault and swap info: this can arguably be seen as either mm-specific or thread-specific */
+    unsigned long min_flt, maj_flt;
+</code></pre><p>&#x200B;    &#xFF08;16&#xFF09;&#x3001;&#x8FDB;&#x7A0B;&#x6743;&#x80FD; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li><strong>const struct cred __rcu *real_cred; /* objective and real subjective task</strong> </li>
+<li>&#x200B;                 * credentials (COW) */  </li>
+<li><strong>const struct cred __rcu *cred;  /* effective (overridable) subjective task</strong> </li>
+<li>&#x200B;                 * credentials (COW) */  </li>
+<li><strong>struct cred *replacement_session_keyring; /* for KEYCTL_SESSION_TO_PARENT */</strong>  </li>
+</ol>
+<pre><code>    const struct cred __rcu *real_cred; /* objective and real subjective task
+                     * credentials (COW) */
+    const struct cred __rcu *cred;    /* effective (overridable) subjective task
+                     * credentials (COW) */
+    struct cred *replacement_session_keyring; /* for KEYCTL_SESSION_TO_PARENT */
+</code></pre><p>&#x200B;    &#xFF08;17&#xFF09;&#x3001;&#x76F8;&#x5E94;&#x7684;&#x7A0B;&#x5E8F;&#x540D; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>char comm[TASK_COMM_LEN];  </li>
+</ol>
+<pre><code>    char comm[TASK_COMM_LEN];
+</code></pre><p>&#x200B;    &#xFF08;18&#xFF09;&#x3001;&#x6587;&#x4EF6; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>/<em> file system info </em>/  </li>
+<li>&#x200B;    int link_count, total_link_count;  </li>
+<li>/<em> filesystem information </em>/  </li>
+<li>&#x200B;    <strong>struct fs_struct *fs;</strong>  </li>
+<li>/<em> open file information </em>/  </li>
+<li>&#x200B;    <strong>struct files_struct *files;</strong>  </li>
+</ol>
+<pre><code>/* file system info */
+    int link_count, total_link_count;
+/* filesystem information */
+    struct fs_struct *fs;
+/* open file information */
+    struct files_struct *files;
+</code></pre><p>&#x200B;    fs&#x7528;&#x6765;&#x8868;&#x793A;&#x8FDB;&#x7A0B;&#x4E0E;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7684;&#x8054;&#x7CFB;&#xFF0C;&#x5305;&#x62EC;&#x5F53;&#x524D;&#x76EE;&#x5F55;&#x548C;&#x6839;&#x76EE;&#x5F55;&#x3002;</p>
+<p>&#x200B;    files&#x8868;&#x793A;&#x8FDB;&#x7A0B;&#x5F53;&#x524D;&#x6253;&#x5F00;&#x7684;&#x6587;&#x4EF6;&#x3002;</p>
+<p>&#x200B;    &#xFF08;19&#xFF09;&#x3001;&#x8FDB;&#x7A0B;&#x901A;&#x4FE1;&#xFF08;SYSVIPC&#xFF09; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>#ifdef CONFIG_SYSVIPC  </li>
+<li>/<em> ipc stuff </em>/  </li>
+<li>&#x200B;    <strong>struct sysv_sem sysvsem;</strong>  </li>
+<li>#endif  </li>
+</ol>
+<pre><code>#ifdef CONFIG_SYSVIPC
+/* ipc stuff */
+    struct sysv_sem sysvsem;
+#endif
+</code></pre><p>&#x200B;    &#xFF08;20&#xFF09;&#x3001;&#x5904;&#x7406;&#x5668;&#x7279;&#x6709;&#x6570;&#x636E; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>/<em> CPU-specific state of this task </em>/  </li>
+<li>&#x200B;    <strong>struct thread_struct thread;</strong>  </li>
+</ol>
+<pre><code>/* CPU-specific state of this task */
+    struct thread_struct thread;
+</code></pre><p>&#x200B;    &#xFF08;21&#xFF09;&#x3001;&#x547D;&#x540D;&#x7A7A;&#x95F4; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>/<em> namespaces </em>/  </li>
+<li>&#x200B;    <strong>struct nsproxy *nsproxy;</strong>  </li>
+</ol>
+<pre><code>/* namespaces */
+    struct nsproxy *nsproxy;
+</code></pre><p>&#x200B;    &#xFF08;22&#xFF09;&#x3001;&#x8FDB;&#x7A0B;&#x5BA1;&#x8BA1; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>&#x200B;    <strong>struct audit_context *audit_context;</strong>  </li>
+<li>#ifdef CONFIG_AUDITSYSCALL  </li>
+<li>&#x200B;    uid_t loginuid;  </li>
+<li>&#x200B;    unsigned int sessionid;  </li>
+<li>#endif  </li>
+</ol>
+<pre><code>    struct audit_context *audit_context;
+#ifdef CONFIG_AUDITSYSCALL
+    uid_t loginuid;
+    unsigned int sessionid;
+#endif
+</code></pre><p>&#x200B;    &#xFF08;23&#xFF09;&#x3001;secure computing </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>seccomp_t seccomp;  </li>
+</ol>
+<pre><code>    seccomp_t seccomp;
+</code></pre><p>&#x200B;    &#xFF08;24&#xFF09;&#x3001;&#x7528;&#x4E8E;copy_process&#x51FD;&#x6570;&#x4F7F;&#x7528;CLONE_PARENT &#x6807;&#x8BB0;&#x65F6; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>/<em> Thread group tracking </em>/  </li>
+<li>&#x200B;    u32 parent_exec_id;  </li>
+<li>&#x200B;    u32 self_exec_id;  </li>
+</ol>
+<pre><code>/* Thread group tracking */
+       u32 parent_exec_id;
+       u32 self_exec_id;
+</code></pre><p>&#x200B;    &#xFF08;25&#xFF09;&#x3001;&#x4E2D;&#x65AD; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>#ifdef CONFIG_GENERIC_HARDIRQS  </li>
+<li>&#x200B;    /<em> IRQ handler threads </em>/  </li>
+<li>&#x200B;    <strong>struct irqaction *irqaction;</strong>  </li>
+<li>#endif  </li>
+<li>#ifdef CONFIG_TRACE_IRQFLAGS  </li>
+<li>&#x200B;    unsigned int irq_events;  </li>
+<li>&#x200B;    unsigned long hardirq_enable_ip;  </li>
+<li>&#x200B;    unsigned long hardirq_disable_ip;  </li>
+<li>&#x200B;    unsigned int hardirq_enable_event;  </li>
+<li>&#x200B;    unsigned int hardirq_disable_event;  </li>
+<li>&#x200B;    int hardirqs_enabled;  </li>
+<li>&#x200B;    int hardirq_context;  </li>
+<li>&#x200B;    unsigned long softirq_disable_ip;  </li>
+<li>&#x200B;    unsigned long softirq_enable_ip;  </li>
+<li>&#x200B;    unsigned int softirq_disable_event;  </li>
+<li>&#x200B;    unsigned int softirq_enable_event;  </li>
+<li>&#x200B;    int softirqs_enabled;  </li>
+<li>&#x200B;    int softirq_context;  </li>
+<li>#endif  </li>
+</ol>
+<pre><code>#ifdef CONFIG_GENERIC_HARDIRQS
+    /* IRQ handler threads */
+    struct irqaction *irqaction;
+#endif
+#ifdef CONFIG_TRACE_IRQFLAGS
+    unsigned int irq_events;
+    unsigned long hardirq_enable_ip;
+    unsigned long hardirq_disable_ip;
+    unsigned int hardirq_enable_event;
+    unsigned int hardirq_disable_event;
+    int hardirqs_enabled;
+    int hardirq_context;
+    unsigned long softirq_disable_ip;
+    unsigned long softirq_enable_ip;
+    unsigned int softirq_disable_event;
+    unsigned int softirq_enable_event;
+    int softirqs_enabled;
+    int softirq_context;
+#endif
+</code></pre><p>&#x200B;    &#xFF08;26&#xFF09;&#x3001;task_rq_lock&#x51FD;&#x6570;&#x6240;&#x4F7F;&#x7528;&#x7684;&#x9501; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>/<em> Protection of the PI data structures: </em>/  </li>
+<li>raw_spinlock_t pi_lock;  </li>
+</ol>
+<pre><code>    /* Protection of the PI data structures: */
+    raw_spinlock_t pi_lock;
+</code></pre><p>&#x200B;    &#xFF08;27&#xFF09;&#x3001;&#x57FA;&#x4E8E;PI&#x534F;&#x8BAE;&#x7684;&#x7B49;&#x5F85;&#x4E92;&#x65A5;&#x9501;&#xFF0C;&#x5176;&#x4E2D;PI&#x6307;&#x7684;&#x662F;priority inheritance&#xFF08;&#x4F18;&#x5148;&#x7EA7;&#x7EE7;&#x627F;&#xFF09; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>#ifdef CONFIG_RT_MUTEXES  </li>
+<li>&#x200B;    /<em> PI waiters blocked on a rt_mutex held by this task </em>/  </li>
+<li>&#x200B;    <strong>struct plist_head pi_waiters;</strong>  </li>
+<li>&#x200B;    /<em> Deadlock detection and priority inheritance handling </em>/  </li>
+<li>&#x200B;    <strong>struct rt_mutex_waiter *pi_blocked_on;</strong>  </li>
+<li>#endif  </li>
+</ol>
+<pre><code>#ifdef CONFIG_RT_MUTEXES
+    /* PI waiters blocked on a rt_mutex held by this task */
+    struct plist_head pi_waiters;
+    /* Deadlock detection and priority inheritance handling */
+    struct rt_mutex_waiter *pi_blocked_on;
+#endif
+</code></pre><p>&#x200B;    &#xFF08;28&#xFF09;&#x3001;&#x6B7B;&#x9501;&#x68C0;&#x6D4B; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>#ifdef CONFIG_DEBUG_MUTEXES  </li>
+<li>&#x200B;    /<em> mutex deadlock detection </em>/  </li>
+<li>&#x200B;    <strong>struct mutex_waiter *blocked_on;</strong>  </li>
+<li>#endif  </li>
+</ol>
+<pre><code>#ifdef CONFIG_DEBUG_MUTEXES
+    /* mutex deadlock detection */
+    struct mutex_waiter *blocked_on;
+#endif
+</code></pre><p>&#x200B;    &#xFF08;29&#xFF09;&#x3001;lockdep&#xFF0C;&#x53C2;&#x89C1;&#x5185;&#x6838;&#x8BF4;&#x660E;&#x6587;&#x6863;linux-2.6.38.8/Documentation/lockdep-design.txt </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>#ifdef CONFIG_LOCKDEP  </li>
+<li># define MAX_LOCK_DEPTH 48UL  </li>
+<li>&#x200B;    u64 curr_chain_key;  </li>
+<li>&#x200B;    int lockdep_depth;  </li>
+<li>&#x200B;    unsigned int lockdep_recursion;  </li>
+<li>&#x200B;    <strong>struct held_lock held_locks[MAX_LOCK_DEPTH];</strong>  </li>
+<li>&#x200B;    gfp_t lockdep_reclaim_gfp;  </li>
+<li>#endif  </li>
+</ol>
+<pre><code>#ifdef CONFIG_LOCKDEP
+# define MAX_LOCK_DEPTH 48UL
+    u64 curr_chain_key;
+    int lockdep_depth;
+    unsigned int lockdep_recursion;
+    struct held_lock held_locks[MAX_LOCK_DEPTH];
+    gfp_t lockdep_reclaim_gfp;
+#endif
+</code></pre><p>&#x200B;    &#xFF08;30&#xFF09;&#x3001;JFS&#x6587;&#x4EF6;&#x7CFB;&#x7EDF; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>/<em> journalling filesystem info </em>/  </li>
+<li>&#x200B;    <strong>void *journal_info;</strong>  </li>
+</ol>
+<pre><code>/* journalling filesystem info */
+    void *journal_info;
+</code></pre><p>&#x200B;    &#xFF08;31&#xFF09;&#x3001;&#x5757;&#x8BBE;&#x5907;&#x94FE;&#x8868; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>/<em> stacked block device info </em>/  </li>
+<li>&#x200B;    <strong>struct bio_list *bio_list;</strong>  </li>
+</ol>
+<pre><code>/* stacked block device info */
+    struct bio_list *bio_list;
+</code></pre><p>&#x200B;    &#xFF08;32&#xFF09;&#x3001;&#x5185;&#x5B58;&#x56DE;&#x6536; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li><strong>struct reclaim_state *reclaim_state;</strong>  </li>
+</ol>
+<pre><code>    struct reclaim_state *reclaim_state;
+</code></pre><p>&#x200B;    &#xFF08;33&#xFF09;&#x3001;&#x5B58;&#x653E;&#x5757;&#x8BBE;&#x5907;I/O&#x6570;&#x636E;&#x6D41;&#x91CF;&#x4FE1;&#x606F;</p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li><strong>struct backing_dev_info *backing_dev_info;</strong>  </li>
+</ol>
+<pre><code>    struct backing_dev_info *backing_dev_info;
+</code></pre><p>&#x200B;    &#xFF08;34&#xFF09;&#x3001;I/O&#x8C03;&#x5EA6;&#x5668;&#x6240;&#x4F7F;&#x7528;&#x7684;&#x4FE1;&#x606F; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li><strong>struct io_context *io_context;</strong>  </li>
+</ol>
+<pre><code>    struct io_context *io_context;
+</code></pre><p>&#x200B;    &#xFF08;35&#xFF09;&#x3001;&#x8BB0;&#x5F55;&#x8FDB;&#x7A0B;&#x7684;I/O&#x8BA1;&#x6570; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li><strong>struct task_io_accounting ioac;</strong>  </li>
+<li><strong>if defined(CONFIG_TASK_XACCT)</strong>  </li>
+<li>u64 acct_rss_mem1;  /<em> accumulated rss usage </em>/  </li>
+<li>u64 acct_vm_mem1;   /<em> accumulated virtual memory usage </em>/  </li>
+<li>cputime_t acct_timexpd; /<em> stime + utime since last update </em>/  </li>
+<li>endif  </li>
+</ol>
+<pre><code>    struct task_io_accounting ioac;
+#if defined(CONFIG_TASK_XACCT)
+    u64 acct_rss_mem1;    /* accumulated rss usage */
+    u64 acct_vm_mem1;    /* accumulated virtual memory usage */
+    cputime_t acct_timexpd;    /* stime + utime since last update */
+#endif
+</code></pre><p>&#x200B;    &#x5728;Ubuntu 11.04&#x4E0A;&#xFF0C;&#x6267;&#x884C;cat&#x83B7;&#x5F97;&#x8FDB;&#x7A0B;1&#x7684;I/O&#x8BA1;&#x6570;&#x5982;&#x4E0B;&#xFF1A; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>$ sudo cat /proc/1/io  </li>
+</ol>
+<pre><code>$ sudo cat /proc/1/io
+</code></pre><p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>rchar: 164258906  </li>
+<li>wchar: 455212837  </li>
+<li>syscr: 388847  </li>
+<li>syscw: 92563  </li>
+<li>read_bytes: 439251968  </li>
+<li>write_bytes: 14143488  </li>
+<li>cancelled_write_bytes: 2134016  </li>
+</ol>
+<pre><code>rchar: 164258906
+wchar: 455212837
+syscr: 388847
+syscw: 92563
+read_bytes: 439251968
+write_bytes: 14143488
+cancelled_write_bytes: 2134016
+</code></pre><p>&#x200B;    &#x8F93;&#x51FA;&#x7684;&#x6570;&#x636E;&#x9879;&#x521A;&#x597D;&#x662F;task_io_accounting&#x7ED3;&#x6784;&#x4F53;&#x7684;&#x6240;&#x6709;&#x6210;&#x5458;&#x3002;</p>
+<p>&#x200B;    &#xFF08;36&#xFF09;&#x3001;CPUSET&#x529F;&#x80FD; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>#ifdef CONFIG_CPUSETS  </li>
+<li>&#x200B;    nodemask_t mems_allowed;    /<em> Protected by alloc_lock </em>/  </li>
+<li>&#x200B;    int mems_allowed_change_disable;  </li>
+<li>&#x200B;    int cpuset_mem_spread_rotor;  </li>
+<li>&#x200B;    int cpuset_slab_spread_rotor;  </li>
+<li>#endif  </li>
+</ol>
+<pre><code>#ifdef CONFIG_CPUSETS
+    nodemask_t mems_allowed;    /* Protected by alloc_lock */
+    int mems_allowed_change_disable;
+    int cpuset_mem_spread_rotor;
+    int cpuset_slab_spread_rotor;
+#endif
+</code></pre><p>&#x200B;    &#xFF08;37&#xFF09;&#x3001;Control Groups </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>#ifdef CONFIG_CGROUPS  </li>
+<li>&#x200B;    /<em> Control Group info protected by css_set_lock </em>/  </li>
+<li>&#x200B;    <strong>struct css_set __rcu *cgroups;</strong>  </li>
+<li>&#x200B;    /<em> cg_list protected by css_set_lock and tsk-&gt;alloc_lock </em>/  </li>
+<li>&#x200B;    <strong>struct list_head cg_list;</strong>  </li>
+<li>#endif  </li>
+<li>#ifdef CONFIG_CGROUP_MEM_RES_CTLR /<em> memcg uses this to do batch job </em>/  </li>
+<li>&#x200B;    <strong>struct memcg_batch_info {</strong>  </li>
+<li>&#x200B;        int do_batch;   /<em> incremented when batch uncharge started </em>/  </li>
+<li>&#x200B;        <strong>struct mem_cgroup *memcg; /* target memcg of uncharge */</strong>  </li>
+<li>&#x200B;        unsigned long bytes;        /<em> uncharged usage </em>/  </li>
+<li>&#x200B;        unsigned long memsw_bytes; /<em> uncharged mem+swap usage </em>/  </li>
+<li>&#x200B;    } memcg_batch;  </li>
+<li>#endif  </li>
+</ol>
+<pre><code>#ifdef CONFIG_CGROUPS
+    /* Control Group info protected by css_set_lock */
+    struct css_set __rcu *cgroups;
+    /* cg_list protected by css_set_lock and tsk-&gt;alloc_lock */
+    struct list_head cg_list;
+#endif
+#ifdef CONFIG_CGROUP_MEM_RES_CTLR /* memcg uses this to do batch job */
+    struct memcg_batch_info {
+        int do_batch;    /* incremented when batch uncharge started */
+        struct mem_cgroup *memcg; /* target memcg of uncharge */
+        unsigned long bytes;         /* uncharged usage */
+        unsigned long memsw_bytes; /* uncharged mem+swap usage */
+    } memcg_batch;
+#endif
+</code></pre><p>&#x200B;    &#xFF08;38&#xFF09;&#x3001;futex&#x540C;&#x6B65;&#x673A;&#x5236; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>#ifdef CONFIG_FUTEX  </li>
+<li>&#x200B;    <strong>struct robust_list_head __user *robust_list;</strong>  </li>
+<li>#ifdef CONFIG_COMPAT  </li>
+<li>&#x200B;    <strong>struct compat_robust_list_head __user *compat_robust_list;</strong>  </li>
+<li>#endif  </li>
+<li>&#x200B;    <strong>struct list_head pi_state_list;</strong>  </li>
+<li>&#x200B;    <strong>struct futex_pi_state *pi_state_cache;</strong>  </li>
+<li>#endif  </li>
+</ol>
+<pre><code>#ifdef CONFIG_FUTEX
+    struct robust_list_head __user *robust_list;
+#ifdef CONFIG_COMPAT
+    struct compat_robust_list_head __user *compat_robust_list;
+#endif
+    struct list_head pi_state_list;
+    struct futex_pi_state *pi_state_cache;
+#endif
+</code></pre><p>&#x200B;    &#xFF08;39&#xFF09;&#x3001;&#x975E;&#x4E00;&#x81F4;&#x5185;&#x5B58;&#x8BBF;&#x95EE;&#xFF08;NUMA  Non-Uniform Memory Access&#xFF09; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>#ifdef CONFIG_NUMA  </li>
+<li>&#x200B;    <strong>struct mempolicy *mempolicy;    /* Protected by alloc_lock */</strong>  </li>
+<li>&#x200B;    short il_next;  </li>
+<li>#endif  </li>
+</ol>
+<pre><code>#ifdef CONFIG_NUMA
+    struct mempolicy *mempolicy;    /* Protected by alloc_lock */
+    short il_next;
+#endif
+</code></pre><p>&#x200B;    &#xFF08;40&#xFF09;&#x3001;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4E92;&#x65A5;&#x8D44;&#x6E90; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>atomic_t fs_excl;   /<em> holding fs exclusive resources </em>/  </li>
+</ol>
+<pre><code>    atomic_t fs_excl;    /* holding fs exclusive resources */
+</code></pre><p>&#x200B;    &#xFF08;41&#xFF09;&#x3001;RCU&#x94FE;&#x8868; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li><strong>struct rcu_head rcu;</strong>  </li>
+</ol>
+<pre><code>    struct rcu_head rcu;
+</code></pre><p>&#x200B;    &#xFF08;42&#xFF09;&#x3001;&#x7BA1;&#x9053; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li><strong>struct pipe_inode_info *splice_pipe;</strong>  </li>
+</ol>
+<pre><code>    struct pipe_inode_info *splice_pipe;
+</code></pre><p>&#x200B;    &#xFF08;43&#xFF09;&#x3001;&#x5EF6;&#x8FDF;&#x8BA1;&#x6570; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>#ifdef  CONFIG_TASK_DELAY_ACCT  </li>
+<li>&#x200B;    <strong>struct task_delay_info *delays;</strong>  </li>
+<li>#endif  </li>
+</ol>
+<pre><code>#ifdef    CONFIG_TASK_DELAY_ACCT
+    struct task_delay_info *delays;
+#endif
+</code></pre><p>&#x200B;    &#xFF08;44&#xFF09;&#x3001;fault injection&#xFF0C;&#x53C2;&#x8003;&#x5185;&#x6838;&#x8BF4;&#x660E;&#x6587;&#x4EF6;linux-2.6.38.8/Documentation/fault-injection/fault-injection.txt </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>#ifdef CONFIG_FAULT_INJECTION  </li>
+<li>&#x200B;    int make_it_fail;  </li>
+<li>#endif  </li>
+</ol>
+<pre><code>#ifdef CONFIG_FAULT_INJECTION
+    int make_it_fail;
+#endif
+</code></pre><p>&#x200B;    &#xFF08;45&#xFF09;&#x3001;FLoating proportions </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li><strong>struct prop_local_single dirties;</strong>  </li>
+</ol>
+<pre><code>    struct prop_local_single dirties;
+</code></pre><p>&#x200B;    &#xFF08;46&#xFF09;&#x3001;Infrastructure for displayinglatency </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>#ifdef CONFIG_LATENCYTOP  </li>
+<li>&#x200B;    int latency_record_count;  </li>
+<li>&#x200B;    <strong>struct latency_record latency_record[LT_SAVECOUNT];</strong>  </li>
+<li>#endif  </li>
+</ol>
+<pre><code>#ifdef CONFIG_LATENCYTOP
+    int latency_record_count;
+    struct latency_record latency_record[LT_SAVECOUNT];
+#endif
+</code></pre><p>&#x200B;    &#xFF08;47&#xFF09;&#x3001;time slack values&#xFF0C;&#x5E38;&#x7528;&#x4E8E;poll&#x548C;select&#x51FD;&#x6570; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>unsigned long timer_slack_ns;  </li>
+<li>unsigned long default_timer_slack_ns;  </li>
+</ol>
+<pre><code>    unsigned long timer_slack_ns;
+    unsigned long default_timer_slack_ns;
+</code></pre><p>&#x200B;    &#xFF08;48&#xFF09;&#x3001;socket&#x63A7;&#x5236;&#x6D88;&#x606F;&#xFF08;control message&#xFF09; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li><strong>struct list_head    *scm_work_list;</strong>  </li>
+</ol>
+<pre><code>    struct list_head    *scm_work_list;
+</code></pre><p>&#x200B;    &#xFF08;49&#xFF09;&#x3001;ftrace&#x8DDF;&#x8E2A;&#x5668; </p>
+<p><strong>[cpp]</strong> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">view plain</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">copy</a> <a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">print</a><a href="http://blog.csdn.net/npy_lp/article/details/7335187#" target="_blank">?</a></p>
+<ol>
+<li>#ifdef CONFIG_FUNCTION_GRAPH_TRACER  </li>
+<li>&#x200B;    /<em> Index of current stored address in ret_stack </em>/  </li>
+<li>&#x200B;    int curr_ret_stack;  </li>
+<li>&#x200B;    /<em> Stack of return addresses for return function tracing </em>/  </li>
+<li>&#x200B;    <strong>struct ftrace_ret_stack *ret_stack;</strong>  </li>
+<li>&#x200B;    /<em> time stamp for last schedule </em>/  </li>
+<li>&#x200B;    unsigned long long ftrace_timestamp;  </li>
+<li>&#x200B;    /* </li>
+<li>&#x200B;     * Number of functions that haven&apos;t been traced </li>
+<li>&#x200B;     * because of depth overrun. </li>
+<li>&#x200B;     */  </li>
+<li>&#x200B;    atomic_t trace_overrun;  </li>
+<li>&#x200B;    /<em> Pause for the tracing </em>/  </li>
+<li>&#x200B;    atomic_t tracing_graph_pause;  </li>
+<li>#endif  </li>
+<li>#ifdef CONFIG_TRACING  </li>
+<li>&#x200B;    /<em> state flags for use by tracers </em>/  </li>
+<li>&#x200B;    unsigned long trace;  </li>
+<li>&#x200B;    /<em> bitmask of trace recursion </em>/  </li>
+<li>&#x200B;    unsigned long trace_recursion;  </li>
+<li>#endif /<em> CONFIG_TRACING </em>/ </li>
+</ol>
+
+<script>console.log("plugin-popup....");document.onclick = function(e){ e.target.tagName === "IMG" && window.open(e.target.src,e.target.src)}</script><style>img{cursor:pointer}</style></body></html>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="nice.html" class="navigation navigation-prev " aria-label="Previous page: nice">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../../实验二/过程.html" class="navigation navigation-next " aria-label="Next page: 实验二">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"task_struct","level":"1.1.1.3.2","depth":4,"next":{"title":"实验二","level":"1.1.2","depth":2,"path":"实验二/过程.md","ref":"实验二/过程.md","articles":[]},"previous":{"title":"nice","level":"1.1.1.3.1","depth":4,"path":"实验一/资料/nice.md","ref":"实验一/资料/nice.md","articles":[]},"dir":"ltr"},"config":{"plugins":["donate","chapter-fold","back-to-top-button","code","-lunr","-search","search-pro","splitter","-sharing","sharing-plus","popup","lightbox","livereload"],"root":".","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"pluginsConfig":{"chapter-fold":{}},"livereload":{},"splitter":{},"search-pro":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"popup":{},"code":{"copyButtons":true},"donate":{"alipay":"https://ws3.sinaimg.cn/large/005BYqpgly1g2chablu88g30c90c9e81.jpg","alipayText":"更多精彩","button":"提问","title":"","wechat":"https://ws3.sinaimg.cn/large/005BYqpgly1g2chnfd4c2g309i09ikcz.jpg","wechatText":"QQ 提问"},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"lightbox":{"jquery":true},"back-to-top-button":{},"sharing":{"qq":true,"all":["douban","facebook","google","instapaper","linkedin","twitter","weibo","messenger","qq","qzone","viber","whatsapp"],"douban":false,"facebook":false,"weibo":true,"twitter":false,"pocket":false,"google":true,"qzone":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Bre Athy","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":" 呼吸君のGitBook ","language":"zh-hans","links":{"sidebar":{"Home":"https://www.zhihu.com/people/you-yi-shi-de-hu-xi/activities"}},"gitbook":"*","description":"Linux实验"},"file":{"path":"实验一/资料/task_struct.md","mtime":"2019-04-03T10:55:24.119Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-04-25T06:28:13.722Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-donate/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing-plus/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lightbox/jquery.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lightbox/lightbox.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
